@@ -35,7 +35,7 @@ You can also find tags that reference a commit or version number.
 
 ## Claim your server
 
-Go to [plex.tv/claim](https://www.plex.tv/claim) and login with your account, copy the claim code and add it to the environment variable like this `-e PLEX_CLAIM=claim-xxxxxxxxxxxxxxxxxxxx`. When starting the new plex server for the first time, the server will be added to your account.
+Go to [plex.tv/claim](https://www.plex.tv/claim) and login with your account, copy the claim code and add it to the environment variable like this `-e PLEX_CLAIM="claim-xxxxxxxxxxxxxxxxxxxx"`. When starting the new plex server for the first time, the server will be added to your account.
 
 ## Plex Pass
 
