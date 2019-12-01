@@ -11,6 +11,9 @@ PUID=${PUID}
 PGID=${PGID}
 UMASK=${UMASK}
 TZ=${TZ}
+PLEX_CLAIM=${PLEX_CLAIM}
+ADVERTISE_IP=${ADVERTISE_IP}
+ALLOWED_NETWORKS=${ALLOWED_NETWORKS}
 ----------------------------------------------------------------------
 "
 
