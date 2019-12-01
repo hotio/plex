@@ -24,7 +24,7 @@ prefFile="${CONFIG_DIR}/app/Plex Media Server/Preferences.xml"
 
 # Create empty Preferences.xml file if it doesn't exist already
 if [[ ! -f "${prefFile}" ]]; then
-  echo "Creating empty Preferences.xml"
+  echo "Creating empty Preferences.xml..."
   mkdir -p "$(dirname "${prefFile}")"
   cat > "${prefFile}" <<-EOF
 <?xml version="1.0" encoding="utf-8"?>
@@ -48,7 +48,7 @@ fi
 # Get server token and only turn claim token into server token if we have former but not latter.
 token="$(getPref "PlexOnlineToken")"
 if [[ -n "${PLEX_CLAIM}" ]] && [[ -z "${token}" ]]; then
-  echo "Attempting to obtain server token from claim token"
+  echo "Attempting to obtain server token from claim token..."
   loginInfo="$(curl -fsSL -X POST \
         -H 'X-Plex-Client-Identifier: '"${clientId}" \
         -H 'X-Plex-Product: Plex Media Server'\
@@ -62,21 +62,24 @@ if [[ -n "${PLEX_CLAIM}" ]] && [[ -z "${token}" ]]; then
   token="$(echo "$loginInfo" | sed -n 's/.*<authentication-token>\(.*\)<\/authentication-token>.*/\1/p')"
   
   if [[ "$token" ]]; then
-    echo "Token obtained successfully"
+    echo "Token obtained successfully!"
     setPref "PlexOnlineToken" "${token}"
   fi
 fi
 
 # Set other preferences
 if [[ -n "${ADVERTISE_IP}" ]]; then
+  echo "Setting customConnections to: ${ADVERTISE_IP}"
   setPref "customConnections" "${ADVERTISE_IP}"
 fi
 
 if [[ -n "${ALLOWED_NETWORKS}" ]]; then
+  echo "Setting allowedNetworks to: ${ALLOWED_NETWORKS}"
   setPref "allowedNetworks" "${ALLOWED_NETWORKS}"
 fi
 
 # Set transcoder directory if not yet set
 if [[ -z "$(getPref "TranscoderTempDirectory")" ]]; then
+  echo "Setting TranscoderTempDirectory to: /transcode"
   setPref "TranscoderTempDirectory" "/transcode"
 fi
