@@ -21,6 +21,7 @@ The environment variables below are all optional, the values you see are the def
 -e PLEX_CLAIM=""
 -e ADVERTISE_IP=""
 -e ALLOWED_NETWORKS=""
+-e PLEX_PASS="no"
 ```
 
 ## Tags
@@ -31,6 +32,14 @@ The environment variables below are all optional, the values you see are the def
 | stable   | Stable version                 | [![Build Status](https://cloud.drone.io/api/badges/hotio/docker-plex/status.svg?ref=refs/heads/stable)](https://cloud.drone.io/hotio/docker-plex) | ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/hotio/docker-plex/stable) |
 
 You can also find tags that reference a commit or version number.
+
+## Claim your server
+
+Go to [plex.tv/claim](https://www.plex.tv/claim) and login with your account, copy the claim code and add it to the environment variable like this `-e PLEX_CLAIM=claim-xxxxxxxxxxxxxxxxxxxx`. When starting the new plex server for the first time, the server will be added to your account.
+
+## Plex Pass
+
+If you are a Plex Pass member, you can enable the install of beta builds with `-e PLEX_PASS="yes"`. When the container starts, a version check is done for the latest beta and installed if a newer version is found.
 
 ## Configuration location
 
