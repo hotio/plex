@@ -11,4 +11,4 @@ PLEX_MEDIA_SERVER_INFO_DEVICE="Docker Container"              && export PLEX_MED
 PLEX_MEDIA_SERVER_INFO_MODEL="$(uname -m)"                    && export PLEX_MEDIA_SERVER_INFO_MODEL
 PLEX_MEDIA_SERVER_INFO_PLATFORM_VERSION="$(uname -r)"         && export PLEX_MEDIA_SERVER_INFO_PLATFORM_VERSION
 
-exec s6-setuidgid hotio /bin/bash -c 'LD_LIBRARY_PATH=/usr/lib/plexmediaserver:/usr/lib/plexmediaserver/lib /usr/lib/plexmediaserver/Plex\ Media\ Server'
+exec s6-setuidgid hotio /bin/bash -c 'LD_LIBRARY_PATH=/usr/lib/plexmediaserver:/usr/lib/plexmediaserver/lib /usr/lib/plexmediaserver/Plex\ Media\ Server > /dev/null 2>&1'
