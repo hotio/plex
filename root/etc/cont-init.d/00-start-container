@@ -19,7 +19,16 @@ PLEX_PASS=${PLEX_PASS}
 "
 
 groupmod -o -g "${PGID}" hotio
+
+if [[ ! "${PUID}" -eq 0 ]]; then
+    mkdir "/tmp/temphome"
+    usermod -d "/tmp/temphome" hotio
+fi
 usermod -o -u "${PUID}" hotio
+if [[ ! "${PUID}" -eq 0 ]]; then
+    usermod -d "${CONFIG_DIR}" hotio
+    rm -rf "/tmp/temphome"
+fi
 
 if [[ ! -d "${CONFIG_DIR}/app" ]]; then
     mkdir "${CONFIG_DIR}/app"
