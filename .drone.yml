@@ -65,7 +65,7 @@ steps:
   pull: always
   commands:
     - sleep 60
-    - curl -fsSL service:32400
+    - curl -fsSL service:32400/web
 
 services:
 - name: service
@@ -126,7 +126,7 @@ steps:
   pull: always
   commands:
     - sleep 60
-    - curl -fsSL service:32400
+    - curl -fsSL service:32400/web
 
 services:
 - name: service
@@ -187,7 +187,7 @@ steps:
   pull: always
   commands:
     - sleep 60
-    - curl -fsSL service:32400
+    - curl -fsSL service:32400/web
 
 services:
 - name: service
