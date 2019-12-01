@@ -3,14 +3,12 @@
 
 umask "${UMASK}"
 
-export PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="${CONFIG_DIR}/app"
-export PLEX_MEDIA_SERVER_HOME="/usr/lib/plexmediaserver"
-export PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=6
-export PLEX_MEDIA_SERVER_INFO_VENDOR="Docker"
-export PLEX_MEDIA_SERVER_INFO_DEVICE="Docker Container"
-PLEX_MEDIA_SERVER_INFO_MODEL=$(uname -m)
-export PLEX_MEDIA_SERVER_INFO_MODEL
-PLEX_MEDIA_SERVER_INFO_PLATFORM_VERSION=$(uname -r)
-export PLEX_MEDIA_SERVER_INFO_PLATFORM_VERSION
+PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="${CONFIG_DIR}/app" && export PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR
+PLEX_MEDIA_SERVER_HOME="/usr/lib/plexmediaserver"             && export PLEX_MEDIA_SERVER_HOME
+PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=6                          && export PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS
+PLEX_MEDIA_SERVER_INFO_VENDOR="Docker"                        && export PLEX_MEDIA_SERVER_INFO_VENDOR
+PLEX_MEDIA_SERVER_INFO_DEVICE="Docker Container"              && export PLEX_MEDIA_SERVER_INFO_DEVICE
+PLEX_MEDIA_SERVER_INFO_MODEL="$(uname -m)"                    && export PLEX_MEDIA_SERVER_INFO_MODEL
+PLEX_MEDIA_SERVER_INFO_PLATFORM_VERSION="$(uname -r)"         && export PLEX_MEDIA_SERVER_INFO_PLATFORM_VERSION
 
-exec s6-setuidgid plex /bin/sh -c 'LD_LIBRARY_PATH=/usr/lib/plexmediaserver:/usr/lib/plexmediaserver/lib /usr/lib/plexmediaserver/Plex\ Media\ Server'
+exec s6-setuidgid hotio /bin/bash -c 'LD_LIBRARY_PATH=/usr/lib/plexmediaserver:/usr/lib/plexmediaserver/lib /usr/lib/plexmediaserver/Plex\ Media\ Server'
