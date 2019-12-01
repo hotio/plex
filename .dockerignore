@@ -1,0 +1,9 @@
+.git
+.gitignore
+.github
+.gitattributes
+.drone.yml
+.weekly-build
+README.md
+update.sh
+discord.sh
