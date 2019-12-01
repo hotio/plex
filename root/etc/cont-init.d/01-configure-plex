@@ -49,7 +49,7 @@ fi
 token="$(getPref "PlexOnlineToken")"
 if [[ -n "${PLEX_CLAIM}" ]] && [[ -z "${token}" ]]; then
   echo "Attempting to obtain server token from claim token"
-  loginInfo="$(curl -X POST \
+  loginInfo="$(curl -fsSL -X POST \
         -H 'X-Plex-Client-Identifier: '"${clientId}" \
         -H 'X-Plex-Product: Plex Media Server'\
         -H 'X-Plex-Version: 1.1' \
