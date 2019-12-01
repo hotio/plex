@@ -65,7 +65,7 @@ steps:
   pull: always
   commands:
     - sleep 60
-    - curl -fsSL nzbget:tegbzn6789@service:6789
+    - curl -fsSL service:32400
 
 services:
 - name: service
@@ -126,7 +126,7 @@ steps:
   pull: always
   commands:
     - sleep 60
-    - curl -fsSL nzbget:tegbzn6789@service:6789
+    - curl -fsSL service:32400
 
 services:
 - name: service
@@ -187,7 +187,7 @@ steps:
   pull: always
   commands:
     - sleep 60
-    - curl -fsSL nzbget:tegbzn6789@service:6789
+    - curl -fsSL service:32400
 
 services:
 - name: service
