@@ -33,6 +33,10 @@ The environment variables below are all optional, the values you see are the def
 
 You can also find tags that reference a commit or version number.
 
+## Volumes
+
+By default the container has 2 volumes defined, the volume `/config` that contains the configuration files and the volume `/transcode` which is used as the default transcode directory.
+
 ## Claim your server
 
 Go to [plex.tv/claim](https://www.plex.tv/claim) and login with your account, copy the claim code and add it to the environment variable like this `-e PLEX_CLAIM="claim-xxxxxxxxxxxxxxxxxxxx"`. When starting the new plex server for the first time, the server will be added to your account.
