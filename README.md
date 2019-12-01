@@ -18,6 +18,9 @@ The environment variables below are all optional, the values you see are the def
 -e PUID=1000
 -e PGID=1000
 -e UMASK=022
+-e PLEX_CLAIM=""
+-e ADVERTISE_IP=""
+-e ALLOWED_NETWORKS=""
 ```
 
 ## Tags
