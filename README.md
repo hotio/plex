@@ -9,7 +9,7 @@
 Just the basics to get the container running:
 
 ```shell
-docker run --rm --name plex -p 32400:32400 -v /tmp/plex:/config -e TZ=Etc/UTC hotio/plex
+docker run --rm --name plex -p 32400:32400 -v /tmp/plex:/config hotio/plex
 ```
 
 The environment variables below are all optional, the values you see are the defaults.
@@ -17,7 +17,8 @@ The environment variables below are all optional, the values you see are the def
 ```shell
 -e PUID=1000
 -e PGID=1000
--e UMASK=022
+-e UMASK=002
+-e TZ="Etc/UTC"
 -e PLEX_CLAIM=""
 -e ADVERTISE_IP=""
 -e ALLOWED_NETWORKS=""
@@ -43,7 +44,7 @@ Go to [plex.tv/claim](https://www.plex.tv/claim) and login with your account, co
 
 ## Plex Pass
 
-If you are a Plex Pass member, you can enable the install of beta builds with `-e PLEX_PASS="yes"`. When the container starts, a version check is done for the latest beta and installed if a newer version is found.
+If you are a Plex Pass subscriber, you can enable the install of beta builds with `-e PLEX_PASS="yes"`. When the container starts, a version check is done for the latest beta and installed if a newer version is found.
 
 ## Configuration location
 
