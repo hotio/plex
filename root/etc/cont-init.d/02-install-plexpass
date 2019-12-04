@@ -12,11 +12,25 @@ function getPref {
 prefFile="${CONFIG_DIR}/app/Plex Media Server/Preferences.xml"
 
 if [[ "${PLEX_PASS}" == "yes" ]]; then
-    echo "Installing Plex Pass version..."
+    echo "Attempting Plex Pass beta installation..."
 
     token="$(getPref "PlexOnlineToken")"
     if [[ -z "${token}" ]]; then
         echo "No token has been found! Aborting installation."
+        exit 0
+    fi
+
+    PLEX_PASS_VERSION=$(curl -fsSL "https://plex.tv/api/downloads/5.json?channel=plexpass&X-Plex-Token=${token}" | jq -r .computer.Linux.version)
+    PUBLIC_VERSION=$(curl -fsSL "https://plex.tv/api/downloads/5.json" | jq -r .computer.Linux.version)
+
+    if [[ "${PUBLIC_VERSION}" == "${PLEX_PASS_VERSION}" ]]; then
+        echo "No eligable beta found! Aborting installation."
+        exit 0
+    fi
+
+    INSTALLED_VERSION=$(dpkg-query -W -f='${Version}' plexmediaserver)
+    if [[ "${INSTALLED_VERSION}" == "${PLEX_PASS_VERSION}" ]]; then
+        echo "Already on the latest beta \"${PLEX_PASS_VERSION}\", no update required. Aborting installation."
         exit 0
     fi
 
@@ -32,19 +46,11 @@ if [[ "${PLEX_PASS}" == "yes" ]]; then
             ;;
     esac
 
-    INSTALLED_VERSION=$(dpkg-query -W -f='${Version}' plexmediaserver)
-    PLEX_PASS_VERSION=$(curl -fsSL "https://plex.tv/api/downloads/5.json?channel=plexpass&X-Plex-Token=${token}" | jq -r .computer.Linux.version)
-
-    if [[ "${INSTALLED_VERSION}" == "${PLEX_PASS_VERSION}" ]]; then
-        echo "Already on the latest version \"${PLEX_PASS_VERSION}\". No update required."
-        exit 0
-    fi
-
     debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "https://downloads.plex.tv/plex-media-server-new/${PLEX_PASS_VERSION}/debian/plexmediaserver_${PLEX_PASS_VERSION}_${architecture}.deb" && dpkg --install --force-confold "${debfile}" && rm -f "${debfile}" && INSTALL_OK="yes"
     if [[ "${INSTALL_OK}" != "yes" ]]; then
-        echo -e '\e[31m'"Installation of version \"${PLEX_PASS_VERSION}\" failed!"'\e[0m'
+        echo -e '\e[31m'"Installation of beta \"${PLEX_PASS_VERSION}\" failed!"'\e[0m'
         exit 1
     else
-        echo "Installation of version \"${PLEX_PASS_VERSION}\" succeeded."
+        echo "Installation of beta \"${PLEX_PASS_VERSION}\" succeeded."
     fi
 fi
