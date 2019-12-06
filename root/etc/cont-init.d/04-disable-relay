@@ -4,7 +4,9 @@
 umask "${UMASK}"
 
 if [[ "${DISABLE_RELAY}" == "no" ]] && [[ -f "/usr/lib/plexmediaserver/Plex Relay DISABLED" ]] && [[ ! -f "/usr/lib/plexmediaserver/Plex Relay" ]]; then
+    echo "Re-enabling Plex Relay..."
     mv "/usr/lib/plexmediaserver/Plex Relay DISABLED" "/usr/lib/plexmediaserver/Plex Relay"
 elif [[ "${DISABLE_RELAY}" == "yes" ]] && [[ -f "/usr/lib/plexmediaserver/Plex Relay" ]]; then
+    echo "Disabling Plex Relay..."
     mv "/usr/lib/plexmediaserver/Plex Relay" "/usr/lib/plexmediaserver/Plex Relay DISABLED"
 fi
