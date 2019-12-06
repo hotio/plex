@@ -15,6 +15,7 @@ PLEX_CLAIM=${PLEX_CLAIM}
 ADVERTISE_IP=${ADVERTISE_IP}
 ALLOWED_NETWORKS=${ALLOWED_NETWORKS}
 PLEX_PASS=${PLEX_PASS}
+DISABLE_RELAY=${DISABLE_RELAY}
 ----------------------------------------------------------------------
 "
 
