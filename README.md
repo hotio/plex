@@ -64,4 +64,3 @@ If you have a need to do additional stuff when the container starts or stops, yo
 
 echo "Hello, this is me, your script."
 ```
-
