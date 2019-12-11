@@ -19,19 +19,18 @@ DISABLE_RELAY=${DISABLE_RELAY}
 ----------------------------------------------------------------------
 "
 
-groupmod -o -g "${PGID}" hotio
-
 if [[ ! "${PUID}" -eq 0 ]]; then
+    echo "Executing usermod..."
     mkdir "/tmp/temphome"
     usermod -d "/tmp/temphome" hotio
-fi
-usermod -o -u "${PUID}" hotio
-if [[ ! "${PUID}" -eq 0 ]]; then
+    usermod -o -u "${PUID}" hotio
     usermod -d "${CONFIG_DIR}" hotio
     rm -rf "/tmp/temphome"
+    groupmod -o -g "${PGID}" hotio
 fi
 
 if [[ ! -d "${CONFIG_DIR}/app" ]]; then
+    echo "Creating directory ${CONFIG_DIR}/app"
     mkdir "${CONFIG_DIR}/app"
     chown hotio:hotio "${CONFIG_DIR}/app"
 fi
