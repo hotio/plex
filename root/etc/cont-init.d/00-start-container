@@ -19,7 +19,7 @@ DISABLE_RELAY=${DISABLE_RELAY}
 ----------------------------------------------------------------------
 "
 
-if [[ ! "${PUID}" -eq 0 ]]; then
+if [[ ! "${PUID}" -eq 0 ]] && [[ ! "${PGID}" -eq 0 ]]; then
     echo "Executing usermod..."
     mkdir "/tmp/temphome"
     usermod -d "/tmp/temphome" hotio
@@ -27,6 +27,9 @@ if [[ ! "${PUID}" -eq 0 ]]; then
     usermod -d "${CONFIG_DIR}" hotio
     rm -rf "/tmp/temphome"
     groupmod -o -g "${PGID}" hotio
+else
+    echo "Running as root is not supported, please fix your PUID and PGID!"
+    exit 1
 fi
 
 if [[ ! -d "${CONFIG_DIR}/app" ]]; then
