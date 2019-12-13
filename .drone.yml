@@ -296,8 +296,9 @@ steps:
   pull: always
   user: root
   commands:
-    - apk add --no-cache curl@edge bind-tools@edge sed@edge
-    - sleep 50
+    - apk add --no-cache curl@edge bind-tools@edge sed@edge bash@edge coreutils@edge
+    - curl -fsSL https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh > wait-for-it.sh
+    - bash wait-for-it.sh service:32400 -t 120
     - sed -i -e "s/service/$(dig +short service)/g" puppeteer.js
     - mv puppeteer.js /usr/src/app/src/puppeteer.js && cd /usr/src/app && node src/puppeteer.js
     - curl -fsSL -F'file=@/tmp/screenshot.png' https://0x0.st > /drone/src/screenshot.log
