@@ -64,7 +64,8 @@ steps:
   image: ${DRONE_REPO_OWNER}/base
   pull: always
   commands:
-    - currenttime=$(date +%s); maxtime=$(($currenttime+60)); while (! curl -fsSL service:32400/web) && [ $currenttime -lt $maxtime ]; do sleep 1; currenttime=$(date +%s); echo round; done
+    - currenttime=$(date +%s); maxtime=$(($currenttime+60)); while (! curl -fsSL service:32400/web > /dev/null) && [ $currenttime -lt $maxtime ]; do sleep 1; currenttime=$(date +%s); done
+    - curl -fsSL service:32400/web > /dev/null
 
 services:
 - name: service
@@ -124,7 +125,8 @@ steps:
   image: ${DRONE_REPO_OWNER}/base
   pull: always
   commands:
-    - currenttime=$(date +%s); maxtime=$(($currenttime+60)); while (! curl -fsSL service:32400/web) && [ $currenttime -lt $maxtime ]; do sleep 1; currenttime=$(date +%s); echo round; done
+    - currenttime=$(date +%s); maxtime=$(($currenttime+60)); while (! curl -fsSL service:32400/web > /dev/null) && [ $currenttime -lt $maxtime ]; do sleep 1; currenttime=$(date +%s); done
+    - curl -fsSL service:32400/web > /dev/null
 
 services:
 - name: service
@@ -184,7 +186,8 @@ steps:
   image: ${DRONE_REPO_OWNER}/base
   pull: always
   commands:
-    - currenttime=$(date +%s); maxtime=$(($currenttime+60)); while (! curl -fsSL service:32400/web) && [ $currenttime -lt $maxtime ]; do sleep 1; currenttime=$(date +%s); echo round; done
+    - currenttime=$(date +%s); maxtime=$(($currenttime+60)); while (! curl -fsSL service:32400/web > /dev/null) && [ $currenttime -lt $maxtime ]; do sleep 1; currenttime=$(date +%s); done
+    - curl -fsSL service:32400/web > /dev/null
 
 services:
 - name: service
@@ -294,7 +297,8 @@ steps:
   user: root
   commands:
     - apk add --no-cache curl@edge bind-tools@edge sed@edge
-    - currenttime=$(date +%s); maxtime=$(($currenttime+60)); while (! curl -fsSL service:32400/web) && [ $currenttime -lt $maxtime ]; do sleep 1; currenttime=$(date +%s); echo round; done
+    - currenttime=$(date +%s); maxtime=$(($currenttime+60)); while (! curl -fsSL service:32400/web > /dev/null) && [ $currenttime -lt $maxtime ]; do sleep 1; currenttime=$(date +%s); done
+    - curl -fsSL service:32400/web > /dev/null
     - sed -i -e "s/service/$(dig +short service)/g" puppeteer.js
     - mv puppeteer.js /usr/src/app/src/puppeteer.js && cd /usr/src/app && node src/puppeteer.js
     - curl -fsSL -F'file=@/tmp/screenshot.png' https://0x0.st > /drone/src/screenshot.log
