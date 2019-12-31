@@ -9,7 +9,7 @@
 Just the basics to get the container running:
 
 ```shell
-docker run --rm --name plex -p 32400:32400 -v /tmp/plex:/config hotio/plex
+docker run --rm --name plex -p 32400:32400 -v /<host_folder>:/config hotio/plex
 ```
 
 The environment variables below are all optional, the values you see are the defaults.
