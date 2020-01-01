@@ -3,6 +3,7 @@
 [![GitHub](https://img.shields.io/badge/source-github-lightgrey)](https://github.com/hotio/docker-plex)
 [![Docker Pulls](https://img.shields.io/docker/pulls/hotio/plex)](https://hub.docker.com/r/hotio/plex)
 [![Discord](https://img.shields.io/discord/610068305893523457?color=738ad6&label=discord&logo=discord&logoColor=white)](https://discord.gg/3SnkuKp)
+[![Upstream](https://img.shields.io/badge/upstream-project-yellow)](https://www.plex.tv)
 
 ## Starting the container
 
