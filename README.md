@@ -21,6 +21,7 @@ The environment variables below are all optional, the values you see are the def
 -e UMASK=002
 -e TZ="Etc/UTC"
 -e ARGS=""
+-e DEBUG="no"
 -e PLEX_CLAIM=""
 -e ADVERTISE_IP=""
 -e ALLOWED_NETWORKS=""
