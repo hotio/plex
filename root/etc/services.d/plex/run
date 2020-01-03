@@ -20,4 +20,5 @@ redirect_cmd() {
     fi
 }
 
-redirect_cmd exec s6-setuidgid hotio /usr/lib/plexmediaserver/Plex\ Media\ Server
+# shellcheck disable=SC2086
+redirect_cmd exec s6-setuidgid hotio "/usr/lib/plexmediaserver/Plex Media Server" ${ARGS}
