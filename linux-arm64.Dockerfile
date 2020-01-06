@@ -17,7 +17,7 @@ RUN apt update && \
     apt clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
-ARG PLEX_VERSION=1.18.3.2156-349e9837e
+ARG PLEX_VERSION=1.18.4.2171-ac2afe5f8
 
 # install app
 RUN debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "https://downloads.plex.tv/plex-media-server-new/${PLEX_VERSION}/debian/plexmediaserver_${PLEX_VERSION}_arm64.deb" && dpkg --install "${debfile}" && rm "${debfile}"
