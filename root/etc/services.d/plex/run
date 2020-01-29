@@ -3,14 +3,14 @@
 
 umask "${UMASK}"
 
-PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="${CONFIG_DIR}/app"           && export PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR
-PLEX_MEDIA_SERVER_HOME="/usr/lib/plexmediaserver"                       && export PLEX_MEDIA_SERVER_HOME
-PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=6                                    && export PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS
-PLEX_MEDIA_SERVER_INFO_VENDOR="Docker"                                  && export PLEX_MEDIA_SERVER_INFO_VENDOR
-PLEX_MEDIA_SERVER_INFO_DEVICE="Docker Container (hotio)"                && export PLEX_MEDIA_SERVER_INFO_DEVICE
-PLEX_MEDIA_SERVER_INFO_MODEL="$(uname -m)"                              && export PLEX_MEDIA_SERVER_INFO_MODEL
-PLEX_MEDIA_SERVER_INFO_PLATFORM_VERSION="$(uname -r)"                   && export PLEX_MEDIA_SERVER_INFO_PLATFORM_VERSION
-LD_LIBRARY_PATH="/usr/lib/plexmediaserver:/usr/lib/plexmediaserver/lib" && export LD_LIBRARY_PATH
+PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="${CONFIG_DIR}/app"                               && export PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR
+PLEX_MEDIA_SERVER_HOME="${APP_DIR}/usr/lib/plexmediaserver"                                 && export PLEX_MEDIA_SERVER_HOME
+PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=6                                                        && export PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS
+PLEX_MEDIA_SERVER_INFO_VENDOR="Docker"                                                      && export PLEX_MEDIA_SERVER_INFO_VENDOR
+PLEX_MEDIA_SERVER_INFO_DEVICE="Docker Container (hotio)"                                    && export PLEX_MEDIA_SERVER_INFO_DEVICE
+PLEX_MEDIA_SERVER_INFO_MODEL="$(uname -m)"                                                  && export PLEX_MEDIA_SERVER_INFO_MODEL
+PLEX_MEDIA_SERVER_INFO_PLATFORM_VERSION="$(uname -r)"                                       && export PLEX_MEDIA_SERVER_INFO_PLATFORM_VERSION
+LD_LIBRARY_PATH="${APP_DIR}/usr/lib/plexmediaserver:${APP_DIR}/usr/lib/plexmediaserver/lib" && export LD_LIBRARY_PATH
 
 redirect_cmd() {
     if [[ "${DEBUG}" == "yes" ]]; then
@@ -21,4 +21,4 @@ redirect_cmd() {
 }
 
 # shellcheck disable=SC2086
-redirect_cmd exec s6-setuidgid hotio "/usr/lib/plexmediaserver/Plex Media Server" ${ARGS}
+redirect_cmd exec s6-setuidgid hotio "${APP_DIR}/usr/lib/plexmediaserver/Plex Media Server" ${ARGS}
