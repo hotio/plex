@@ -26,7 +26,6 @@ The environment variables below are all optional, the values you see are the def
 -e ADVERTISE_IP=""
 -e ALLOWED_NETWORKS=""
 -e PLEX_PASS="no"
--e DISABLE_RELAY="no"
 ```
 
 ## Tags
