@@ -62,7 +62,7 @@
     }
   },
   "RUN_COMMAND_BEFORE_SCAN": "",
-  "SERVER_ALLOW_MANUAL_SCAN": false,
+  "SERVER_ALLOW_MANUAL_SCAN": true,
   "SERVER_FILE_EXIST_PATH_MAPPINGS": {
       "/mnt/unionfs/media/": [
           "/data/"
