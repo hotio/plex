@@ -30,12 +30,19 @@ The environment variables below are all optional, the values you see are the def
 -e PLEX_PASS="no"
 ```
 
+Only for the `autoscan` tag.
+
+```shell
+-e PLEXAUTOSCAN_ARGS=""
+```
+
 ## Tags
 
-| Tag      | Description                    | Build Status                                                                                                                                      | Last Updated                                                                                                                                              |
-| ---------|--------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| latest   | The same as `stable`           |                                                                                                                                                   |                                                                                                                                                           |
-| stable   | Stable version                 | [![Build Status](https://cloud.drone.io/api/badges/hotio/docker-plex/status.svg?ref=refs/heads/stable)](https://cloud.drone.io/hotio/docker-plex) | [![GitHub last commit (branch)](https://img.shields.io/github/last-commit/hotio/docker-plex/stable)](https://github.com/hotio/docker-plex/commits/stable) |
+| Tag      | Description                            | Build Status                                                                                                                                        | Last Updated                                                                                                                                                  |
+| ---------|----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| latest   | The same as `stable`                   |                                                                                                                                                     |                                                                                                                                                               |
+| stable   | Stable version                         | [![Build Status](https://cloud.drone.io/api/badges/hotio/docker-plex/status.svg?ref=refs/heads/stable)](https://cloud.drone.io/hotio/docker-plex)   | [![GitHub last commit (branch)](https://img.shields.io/github/last-commit/hotio/docker-plex/stable)](https://github.com/hotio/docker-plex/commits/stable)     |
+| autoscan | Stable version, includes Plex Autoscan | [![Build Status](https://cloud.drone.io/api/badges/hotio/docker-plex/status.svg?ref=refs/heads/autoscan)](https://cloud.drone.io/hotio/docker-plex) | [![GitHub last commit (branch)](https://img.shields.io/github/last-commit/hotio/docker-plex/autoscan)](https://github.com/hotio/docker-plex/commits/autoscan) |
 
 You can also find tags that reference a commit or version number.
 
