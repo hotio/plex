@@ -67,6 +67,7 @@ steps:
   pull: always
   commands:
     - bash update.sh checkservice
+    - bash update.sh checkserviceplexautoscan
 
 services:
 - name: service
@@ -131,6 +132,7 @@ steps:
   pull: always
   commands:
     - bash update.sh checkservice
+    - bash update.sh checkserviceplexautoscan
 
 services:
 - name: service
@@ -195,6 +197,7 @@ steps:
   pull: always
   commands:
     - bash update.sh checkservice
+    - bash update.sh checkserviceplexautoscan
 
 services:
 - name: service

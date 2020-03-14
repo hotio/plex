@@ -1,0 +1,6 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+if [[ ! -f "${CONFIG_DIR}/plexautoscan/config.json" ]]; then
+    cp /etc/plexautoscan/config.json "${CONFIG_DIR}/plexautoscan/config.json"
+fi

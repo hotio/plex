@@ -17,6 +17,7 @@ PLEX_CLAIM=${PLEX_CLAIM}
 ADVERTISE_IP=${ADVERTISE_IP}
 ALLOWED_NETWORKS=${ALLOWED_NETWORKS}
 PLEX_PASS=${PLEX_PASS}
+PLEXAUTOSCAN_ARGS=${PLEXAUTOSCAN_ARGS}
 ----------------------------------------------------------------------
 "
 
@@ -37,4 +38,10 @@ if [[ ! -d "${CONFIG_DIR}/app" ]]; then
     echo "Creating directory ${CONFIG_DIR}/app"
     mkdir "${CONFIG_DIR}/app"
     chown hotio:hotio "${CONFIG_DIR}/app"
+fi
+
+if [[ ! -d "${CONFIG_DIR}/plexautoscan" ]]; then
+    echo "Creating directory ${CONFIG_DIR}/plexautoscan"
+    mkdir "${CONFIG_DIR}/plexautoscan"
+    chown hotio:hotio "${CONFIG_DIR}/plexautoscan"
 fi

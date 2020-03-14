@@ -40,6 +40,10 @@ elif [[ ${1} == "checkservice" ]]; then
     SERVICE="http://service:32400/web"
     currenttime=$(date +%s); maxtime=$((currenttime+60)); while (! curl -fsSL ${SERVICE} > /dev/null) && [[ "$currenttime" -lt "$maxtime" ]]; do sleep 1; currenttime=$(date +%s); done
     curl -fsSL ${SERVICE} > /dev/null
+elif [[ ${1} == "checkserviceplexautoscan" ]]; then
+    SERVICE="http://service:3468/9c4b81fe234e4d6eb9011cefe514d915"
+    currenttime=$(date +%s); maxtime=$((currenttime+60)); while (! curl -fsSL ${SERVICE} > /dev/null) && [[ "$currenttime" -lt "$maxtime" ]]; do sleep 1; currenttime=$(date +%s); done
+    curl -fsSL ${SERVICE} > /dev/null
 elif [[ ${1} == "checkdigests" ]]; then
     mkdir ~/.docker && echo '{"experimental": "enabled"}' > ~/.docker/config.json
     image="hotio/dotnetcore"
@@ -52,7 +56,11 @@ elif [[ ${1} == "checkdigests" ]]; then
 else
     version=$(curl -fsSL "https://plex.tv/api/downloads/5.json" | jq -r .computer.Linux.version)
     [[ -z ${version} ]] && exit 1
+    version_plexautoscan=$(curl -fsSL "https://api.github.com/repos/l3uddz/plex_autoscan/commits/master" | jq -r .sha)
+    [[ -z ${version_plexautoscan} ]] && exit 1
     find . -type f -name '*.Dockerfile' -exec sed -i "s/ARG PLEX_VERSION=.*$/ARG PLEX_VERSION=${version}/g" {} \;
     sed -i "s/{TAG_VERSION=.*}$/{TAG_VERSION=${version}}/g" .drone.yml
+    find . -type f -name '*.Dockerfile' -exec sed -i "s/ARG PLEXAUTOSCAN_VERSION=.*$/ARG PLEXAUTOSCAN_VERSION=${version_plexautoscan}/g" {} \;
+    version="${version}/${version_plexautoscan}"
     echo "##[set-output name=version;]${version}"
 fi
