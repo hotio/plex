@@ -14,4 +14,4 @@ redirect_cmd() {
 s6-svwait ../plex && sleep 1
 
 # shellcheck disable=SC2086
-redirect_cmd exec s6-setuidgid hotio python3 "${APP_DIR}/plexautoscan/scan.py server" --config "${CONFIG_DIR}/plexautoscan/config.json" --logfile "${CONFIG_DIR}/plexautoscan/plexautoscan.log" --queuefile "${CONFIG_DIR}/plexautoscan/queue.db" --cachefile "${CONFIG_DIR}/plexautoscan/cache.db" ${PLEXAUTOSCAN_ARGS}
+redirect_cmd exec s6-setuidgid hotio python3 "${APP_DIR}/plexautoscan/scan.py" server --config "${CONFIG_DIR}/plexautoscan/config.json" --logfile "${CONFIG_DIR}/plexautoscan/plexautoscan.log" --queuefile "${CONFIG_DIR}/plexautoscan/queue.db" --cachefile "${CONFIG_DIR}/plexautoscan/cache.db" ${PLEXAUTOSCAN_ARGS}
