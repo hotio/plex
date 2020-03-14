@@ -13,10 +13,10 @@ VOLUME ["/transcode"]
 RUN apt update && \
     apt install -y --no-install-recommends --no-install-suggests \
         xmlstarlet uuid-runtime \
-        python3-pip python3-setuptools && \
+        python3-pip python3-setuptools build-essential python3-all-dev && \
     pip3 install --no-cache-dir --upgrade backoff~=1.9.0 certifi~=2019.9.11 chardet~=3.0.4 Click~=7.0 Flask~=1.1.1 idna~=2.8 itsdangerous~=1.1.0 Jinja2~=2.10 MarkupSafe~=1.1.1 oauthlib~=3.1.0 peewee~=2.10.2 psutil~=5.6.5 requests~=2.22.0 requests-oauthlib~=1.3.0 sqlitedict~=1.6.0 urllib3~=1.25.7 Werkzeug~=0.16.0 pyfiglet~=0.8.post1 && \
 # clean up
-    apt purge -y python3-pip python3-setuptools && \
+    apt purge -y python3-pip python3-setuptools build-essential python3-all-dev && \
     apt autoremove -y && \
     apt clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
