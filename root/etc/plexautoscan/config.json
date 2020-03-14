@@ -30,7 +30,7 @@
   "PLEX_FIX_MISMATCHED": false,
   "PLEX_FIX_MISMATCHED_LANG": "en",
   "PLEX_DATABASE_PATH": "/config/app/Plex Media Server/Plug-in Support/Databases/com.plexapp.plugins.library.db",
-  "PLEX_EMPTY_TRASH": false,
+  "PLEX_EMPTY_TRASH": true,
   "PLEX_EMPTY_TRASH_CONTROL_FILES": [
     "/mergerfs/movies/mounted.bin",
     "/mergerfs/tvshows/mounted.bin",
@@ -64,8 +64,8 @@
   "RUN_COMMAND_BEFORE_SCAN": "",
   "SERVER_ALLOW_MANUAL_SCAN": true,
   "SERVER_FILE_EXIST_PATH_MAPPINGS": {
-      "/mnt/unionfs/media/": [
-          "/data/"
+      "/path/on/host/": [
+          "/path/in/container/"
       ]
   },
   "SERVER_IGNORE_LIST": [
@@ -77,8 +77,14 @@
   "SERVER_MAX_FILE_CHECKS": 10,
   "SERVER_PASS": "9c4b81fe234e4d6eb9011cefe514d915",
   "SERVER_PATH_MAPPINGS": {
-      "/mnt/unionfs/": [
-          "/home/user/media/fused/"
+      "/mergerfs/movies/": [
+          "/movies/"
+      ],
+      "/mergerfs/tvshows/": [
+          "/tvshows/"
+      ],
+      "/mergerfs/music/": [
+          "/music/"
       ]
   },
   "SERVER_PORT": 3468,
