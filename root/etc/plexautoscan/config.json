@@ -41,7 +41,7 @@
   "PLEX_LD_LIBRARY_PATH": "/app/usr/lib/plexmediaserver/lib",
   "PLEX_LOCAL_URL": "http://localhost:32400",
   "PLEX_SCANNER": "/app/usr/lib/plexmediaserver/Plex\\ Media\\ Scanner",
-  "PLEX_SUPPORT_DIR": "/app/var/lib/plexmediaserver/Library/Application\\ Support",
+  "PLEX_SUPPORT_DIR": "/config/app",
   "PLEX_USER": "hotio",
   "PLEX_TOKEN": "",
   "PLEX_CHECK_BEFORE_SCAN": false,
