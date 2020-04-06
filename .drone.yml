@@ -298,6 +298,8 @@ kind: pipeline
 name: notify
 
 trigger:
+  event:
+  - push
   status:
   - success
   - failure
