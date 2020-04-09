@@ -52,6 +52,6 @@ elif [[ ${1} == "checkdigests" ]]; then
 else
     version=$(curl -fsSL "https://plex.tv/api/downloads/5.json" | jq -r .computer.Linux.version)
     [[ -z ${version} ]] && exit 1
-    sed -i "s/{PLEX_VERSION=.*}$/{PLEX_VERSION=${version}}/g" .drone.yml
+    sed -i "s/{PLEX_VERSION=[^}]*}/{PLEX_VERSION=${version}}/g" .drone.yml
     echo "##[set-output name=version;]${version}"
 fi
