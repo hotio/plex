@@ -22,12 +22,12 @@ RUN apt update && \
     apt clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
-ARG PLEX_VERSION=1.19.1.2645-ccb6eb67e
+ARG PLEX_VERSION
 
 # install app
 RUN debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "https://downloads.plex.tv/plex-media-server-new/${PLEX_VERSION}/debian/plexmediaserver_${PLEX_VERSION}_arm64.deb" && dpkg -x "${debfile}" "${APP_DIR}" && rm "${debfile}" && echo "${PLEX_VERSION}" > "${APP_DIR}/version"
 
-ARG PLEXAUTOSCAN_VERSION=4e31fb19d81ca9d7ff0fc2f362f9accfff979bc4
+ARG PLEXAUTOSCAN_VERSION
 
 # install plexautoscan
 RUN mkdir "${APP_DIR}/plexautoscan" && curl -fsSL "https://github.com/l3uddz/plex_autoscan/archive/${PLEXAUTOSCAN_VERSION}.tar.gz" | tar xzf - -C "${APP_DIR}/plexautoscan" --strip-components=1 && \
