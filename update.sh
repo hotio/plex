@@ -58,8 +58,8 @@ else
     [[ -z ${version} ]] && exit 1
     version_plexautoscan=$(curl -u "${GITHUB_ACTOR}:${GITHUB_TOKEN}" -fsSL "https://api.github.com/repos/l3uddz/plex_autoscan/commits/master" | jq -r .sha)
     [[ -z ${version_plexautoscan} ]] && exit 1
-    sed -i "s/{PLEX_VERSION=.*}$/{PLEX_VERSION=${version}}/g" .drone.yml
-    sed -i "s/{PLEXAUTOSCAN_VERSION=.*}$/{PLEXAUTOSCAN_VERSION=${version_plexautoscan}}/g" .drone.yml
+    sed -i "s/{PLEX_VERSION=[^}]*}/{PLEX_VERSION=${version}}/g" .drone.yml
+    sed -i "s/{PLEXAUTOSCAN_VERSION=[^}]*}/{PLEXAUTOSCAN_VERSION=${version_plexautoscan}}/g" .drone.yml
     version="${version}/${version_plexautoscan}"
     echo "##[set-output name=version;]${version}"
 fi
