@@ -46,7 +46,7 @@ if [[ "${PLEX_PASS}" == "yes" ]]; then
             ;;
     esac
 
-    debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "https://downloads.plex.tv/plex-media-server-new/${PLEX_PASS_VERSION}/debian/plexmediaserver_${PLEX_PASS_VERSION}_${architecture}.deb" && rm -rf "${APP_DIR:?}/{etc,usr,version}" && dpkg -x "${debfile}" "${APP_DIR}" && rm -f "${debfile}" && echo "${PLEX_PASS_VERSION}" > "${APP_DIR}/version" && INSTALL_OK="yes"
+    debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "https://downloads.plex.tv/plex-media-server-new/${PLEX_PASS_VERSION}/debian/plexmediaserver_${PLEX_PASS_VERSION}_${architecture}.deb" && rm -rf "${APP_DIR:?}/"{etc,usr,version} && dpkg -x "${debfile}" "${APP_DIR}" && rm -f "${debfile}" && echo "${PLEX_PASS_VERSION}" > "${APP_DIR}/version" && INSTALL_OK="yes"
     if [[ "${INSTALL_OK}" != "yes" ]]; then
         echo -e '\e[31m'"Installation of beta \"${PLEX_PASS_VERSION}\" failed!"'\e[0m'
         exit 1
