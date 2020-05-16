@@ -11,7 +11,7 @@ fi
 
 if [[ ! -f "${CONFIG_DIR}/plexautoscan/plex.token" ]] && [[ -n ${PLEX_LOGIN} ]] && [[ -n ${PLEX_PASSWORD} ]]; then
     echo "Trying to get a token for PlexAutoscan..."
-    curl -fsSL -u "${PLEX_LOGIN}":"${PLEX_PASSWORD}" 'https://plex.tv/users/sign_in.json' -X POST -H 'X-Plex-Client-Identifier: '"$(uuidgen)" -H 'X-Plex-Product: PlexAutoscan' -H 'X-Plex-Provides: controller' -H 'X-Plex-Device: Linux '"$(uname -r)" \
+    curl -fsSL -u "${PLEX_LOGIN}":"${PLEX_PASSWORD}" 'https://plex.tv/users/sign_in.json' -X POST -H 'X-Plex-Client-Identifier: '"$(uuidgen)" -H 'X-Plex-Product: PlexAutoscan' -H 'X-Plex-Provides: controller' -H 'X-Plex-Device: Linux '"$(uname -r)" | jq \
         > "${CONFIG_DIR}/plexautoscan/plex.token" && chown hotio:hotio "${CONFIG_DIR}/plexautoscan/plex.token" && echo "Token obtained successfully!"
 fi
 
@@ -19,8 +19,7 @@ if [[ -f "${CONFIG_DIR}/plexautoscan/plex.token" ]]; then
     echo "Updating \"config.json\" with token from \"plex.token\"..."
     token="$(jq -r .[].authentication_token "${CONFIG_DIR}/plexautoscan/plex.token")"
     if [[ -n ${token} ]] && [[ ${token} != null ]]; then
-        sed -i "s#\"PLEX_TOKEN\": \".*\",#\"PLEX_TOKEN\": \"${token}\",#g" "${CONFIG_DIR}/plexautoscan/config.json"
-        echo "Token updated successfully!"
+        sed -i "s#\"PLEX_TOKEN\": \".*\",#\"PLEX_TOKEN\": \"${token}\",#g" "${CONFIG_DIR}/plexautoscan/config.json" && echo "Token updated successfully!"
     else
         echo "Couldn't find token!"
     fi
