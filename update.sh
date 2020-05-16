@@ -41,7 +41,7 @@ elif [[ ${1} == "checkservice" ]]; then
     currenttime=$(date +%s); maxtime=$((currenttime+60)); while (! curl -fsSL ${SERVICE} > /dev/null) && [[ "$currenttime" -lt "$maxtime" ]]; do sleep 1; currenttime=$(date +%s); done
     curl -fsSL ${SERVICE} > /dev/null
 elif [[ ${1} == "checkserviceplexautoscan" ]]; then
-    SERVICE="http://service:3468/9c4b81fe234e4d6eb9011cefe514d915"
+    SERVICE="http://service:3468/droneci"
     currenttime=$(date +%s); maxtime=$((currenttime+60)); while (! curl -fsSL ${SERVICE} > /dev/null) && [[ "$currenttime" -lt "$maxtime" ]]; do sleep 1; currenttime=$(date +%s); done
     curl -fsSL ${SERVICE} > /dev/null
 elif [[ ${1} == "checkdigests" ]]; then
