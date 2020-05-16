@@ -21,6 +21,6 @@ if [[ ! -f "${CONFIG_DIR}/plexautoscan/plex.token" ]] && [[ -n ${PLEX_LOGIN} ]] 
     if [[ -n ${token} ]] && [[ ${token} != null ]]; then
         sed -i "s#\"PLEX_TOKEN\": \".*\",#\"PLEX_TOKEN\": \"${token}\",#g" "${CONFIG_DIR}/plexautoscan/config.json" && echo "Updated \"config.json\" with token \"${token}\"."
     else
-        echo "Couldn't find token!"
+        echo "Something went wrong trying to get a token!"
     fi
 fi
