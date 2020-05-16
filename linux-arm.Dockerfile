@@ -22,15 +22,17 @@ RUN apt update && \
     apt clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
-ARG PLEX_VERSION
-
-# install app
-RUN debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "https://downloads.plex.tv/plex-media-server-new/${PLEX_VERSION}/debian/plexmediaserver_${PLEX_VERSION}_armhf.deb" && dpkg -x "${debfile}" "${APP_DIR}" && rm "${debfile}" && echo "${PLEX_VERSION}" > "${APP_DIR}/version"
-
-ARG PLEXAUTOSCAN_VERSION
-
 # install plexautoscan
+ARG PLEXAUTOSCAN_VERSION
 RUN mkdir "${APP_DIR}/plexautoscan" && curl -fsSL "https://github.com/l3uddz/plex_autoscan/archive/${PLEXAUTOSCAN_VERSION}.tar.gz" | tar xzf - -C "${APP_DIR}/plexautoscan" --strip-components=1 && \
     chmod -R u=rwX,go=rX "${APP_DIR}/plexautoscan"
+
+# install rclone
+ARG RCLONE_VERSION
+RUN debfile="/tmp/rclone.deb" && curl -fsSL -o "${debfile}" "https://github.com/ncw/rclone/releases/download/v${RCLONE_VERSION}/rclone-v${RCLONE_VERSION}-linux-arm.deb" && dpkg --install "${debfile}" && rm "${debfile}"
+
+# install plex
+ARG PLEX_VERSION
+RUN debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "https://downloads.plex.tv/plex-media-server-new/${PLEX_VERSION}/debian/plexmediaserver_${PLEX_VERSION}_armhf.deb" && dpkg -x "${debfile}" "${APP_DIR}" && rm "${debfile}" && echo "${PLEX_VERSION}" > "${APP_DIR}/version"
 
 COPY root/ /

@@ -43,6 +43,7 @@ steps:
     build_args:
       - PLEX_VERSION=${PLEX_VERSION=1.19.3.2764-ef515a800}
       - PLEXAUTOSCAN_VERSION=${PLEXAUTOSCAN_VERSION=4e31fb19d81ca9d7ff0fc2f362f9accfff979bc4}
+      - RCLONE_VERSION=${RCLONE_VERSION=1.51.0}
 
 depends_on:
   - checks
@@ -65,6 +66,11 @@ steps:
   pull: always
   commands:
     - apt list --installed
+- name: show-version
+  image: ${DRONE_REPO_OWNER}/${DRONE_REPO_NAME##docker-}:${DRONE_COMMIT_BRANCH}-${DRONE_COMMIT_SHA:0:7}-${DRONE_BUILD_NUMBER}-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
+  pull: always
+  commands:
+    - rclone version
 - name: test
   image: ${DRONE_REPO_OWNER}/${DRONE_REPO_NAME##docker-}:${DRONE_COMMIT_BRANCH}-${DRONE_COMMIT_SHA:0:7}-${DRONE_BUILD_NUMBER}-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
   pull: always
@@ -111,6 +117,7 @@ steps:
     build_args:
       - PLEX_VERSION=${PLEX_VERSION=1.19.3.2764-ef515a800}
       - PLEXAUTOSCAN_VERSION=${PLEXAUTOSCAN_VERSION=4e31fb19d81ca9d7ff0fc2f362f9accfff979bc4}
+      - RCLONE_VERSION=${RCLONE_VERSION=1.51.0}
 
 depends_on:
   - checks
@@ -133,6 +140,11 @@ steps:
   pull: always
   commands:
     - apt list --installed
+- name: show-version
+  image: ${DRONE_REPO_OWNER}/${DRONE_REPO_NAME##docker-}:${DRONE_COMMIT_BRANCH}-${DRONE_COMMIT_SHA:0:7}-${DRONE_BUILD_NUMBER}-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
+  pull: always
+  commands:
+    - rclone version
 - name: test
   image: ${DRONE_REPO_OWNER}/${DRONE_REPO_NAME##docker-}:${DRONE_COMMIT_BRANCH}-${DRONE_COMMIT_SHA:0:7}-${DRONE_BUILD_NUMBER}-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
   pull: always
@@ -179,6 +191,7 @@ steps:
     build_args:
       - PLEX_VERSION=${PLEX_VERSION=1.19.3.2764-ef515a800}
       - PLEXAUTOSCAN_VERSION=${PLEXAUTOSCAN_VERSION=4e31fb19d81ca9d7ff0fc2f362f9accfff979bc4}
+      - RCLONE_VERSION=${RCLONE_VERSION=1.51.0}
 
 depends_on:
   - checks
@@ -201,6 +214,11 @@ steps:
   pull: always
   commands:
     - apt list --installed
+- name: show-version
+  image: ${DRONE_REPO_OWNER}/${DRONE_REPO_NAME##docker-}:${DRONE_COMMIT_BRANCH}-${DRONE_COMMIT_SHA:0:7}-${DRONE_BUILD_NUMBER}-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
+  pull: always
+  commands:
+    - rclone version
 - name: test
   image: ${DRONE_REPO_OWNER}/${DRONE_REPO_NAME##docker-}:${DRONE_COMMIT_BRANCH}-${DRONE_COMMIT_SHA:0:7}-${DRONE_BUILD_NUMBER}-${DRONE_STAGE_OS}-${DRONE_STAGE_ARCH}
   pull: always
