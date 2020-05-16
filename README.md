@@ -38,7 +38,11 @@ Only for the `autoscan` tag.
 
 ```shell
 -e PLEXAUTOSCAN_ARGS=""
+-e PLEX_LOGIN=""
+-e PLEX_PASSWORD=""
 ```
+
+If `PLEX_LOGIN` + `PLEX_PASSWORD` are not empty and the file `/config/plexautoscan/plex.token` does not exist, an attempt is made to get a Plex token for PlexAutoscan.
 
 ## Tags
 
