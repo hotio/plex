@@ -11,7 +11,7 @@ fi
 
 if [[ ! -f "${CONFIG_DIR}/plexautoscan/plex.token" ]] && [[ -n ${PLEX_LOGIN} ]] && [[ -n ${PLEX_PASSWORD} ]]; then
     echo "Trying to get a token for PlexAutoscan..."
-    curl -fsSL -u "${PLEX_LOGIN}":"${PLEX_PASSWORD}" 'https://plex.tv/users/sign_in.json' -X POST -H 'X-Plex-Client-Identifier: '"$(uuidgen)" -H 'X-Plex-Product: PlexAutoscan' -H 'X-Plex-Provides: controller' -H 'X-Plex-Device: Linux '"$(uname -r)" | jq \
+    curl -fsSL -u "${PLEX_LOGIN}":"${PLEX_PASSWORD}" 'https://plex.tv/users/sign_in.json' -X POST -H 'X-Plex-Client-Identifier: '"$(uuidgen)" -H 'X-Plex-Product: PlexAutoscan' -H 'X-Plex-Provides: controller' -H 'X-Plex-Device: Linux '"$(uname -r)" | jq . \
         > "${CONFIG_DIR}/plexautoscan/plex.token" && chown hotio:hotio "${CONFIG_DIR}/plexautoscan/plex.token" && echo "Token obtained successfully!"
 fi
 
