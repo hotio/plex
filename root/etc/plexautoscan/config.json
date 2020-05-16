@@ -75,7 +75,7 @@
   ],
   "SERVER_IP": "0.0.0.0",
   "SERVER_MAX_FILE_CHECKS": 10,
-  "SERVER_PASS": "9c4b81fe234e4d6eb9011cefe514d915",
+  "SERVER_PASS": "",
   "SERVER_PATH_MAPPINGS": {
       "/mergerfs/movies/": [
           "/movies/"
