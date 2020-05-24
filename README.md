@@ -1,6 +1,6 @@
 # plex
 
-<img src="https://raw.githubusercontent.com/hotio/unraid-templates/master/hotio/img/plex.png" alt="Logo" height="130" width="130">
+<img src="https://raw.githubusercontent.com/hotio/docker-plex/master/img/plex.png" alt="Logo" height="130" width="130">
 
 [![GitHub](https://img.shields.io/badge/source-github-lightgrey)](https://github.com/hotio/docker-plex)
 [![Docker Pulls](https://img.shields.io/docker/pulls/hotio/plex)](https://hub.docker.com/r/hotio/plex)
