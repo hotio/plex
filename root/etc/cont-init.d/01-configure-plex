@@ -79,9 +79,3 @@ if [[ -n "${ALLOWED_NETWORKS}" ]]; then
     echo "Setting allowedNetworks to: ${ALLOWED_NETWORKS}"
     setPref "allowedNetworks" "${ALLOWED_NETWORKS}"
 fi
-
-# Set transcoder directory if not yet set
-if [[ -z "$(getPref "TranscoderTempDirectory")" ]]; then
-    echo "Setting TranscoderTempDirectory to: /transcode"
-    setPref "TranscoderTempDirectory" "/transcode"
-fi
