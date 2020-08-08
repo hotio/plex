@@ -41,7 +41,7 @@ if [[ "${PLEX_PASS}" == "yes" ]]; then
         linux-arm64)
             architecture="arm64"
             ;;
-        linux-arm)
+        linux-arm-v7)
             architecture="armhf"
             ;;
     esac
