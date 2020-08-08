@@ -34,14 +34,14 @@ if [[ "${PLEX_PASS}" == "yes" ]]; then
         exit 0
     fi
 
-    case "${ARCH}" in
+    case "${BUILD_ARCHITECTURE}" in
         linux-amd64)
             architecture="amd64"
             ;;
         linux-arm64)
             architecture="arm64"
             ;;
-        linux-arm)
+        linux-arm-v7)
             architecture="armhf"
             ;;
     esac
