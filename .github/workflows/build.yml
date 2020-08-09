@@ -68,11 +68,11 @@ jobs:
 
       - name: Check if app works
         run: |
-          docker run --rm --network host -d --name service -e DEBUG="yes" ${GITHUB_REPOSITORY//docker-/}:${GITHUB_REF//refs\/heads\//}-${GITHUB_SHA:0:7}-${GITHUB_RUN_NUMBER}-${{ matrix.architecture }}
+          docker run --rm --network host -d --name service -e GITHUB_CI=true -e DEBUG="yes" ${GITHUB_REPOSITORY//docker-/}:${GITHUB_REF//refs\/heads\//}-${GITHUB_SHA:0:7}-${GITHUB_RUN_NUMBER}-${{ matrix.architecture }}
           app_url="http://localhost:32400/web"
           currenttime=$(date +%s); maxtime=$((currenttime+60)); while (! curl -fsSL "${app_url}" > /dev/null) && [[ "$currenttime" -lt "$maxtime" ]]; do sleep 1; currenttime=$(date +%s); done
           curl -fsSL "${app_url}" > /dev/null
-          app_url="http://localhost:3468/droneci"
+          app_url="http://localhost:3468/githubci"
           currenttime=$(date +%s); maxtime=$((currenttime+60)); while (! curl -fsSL "${app_url}" > /dev/null) && [[ "$currenttime" -lt "$maxtime" ]]; do sleep 1; currenttime=$(date +%s); done
           curl -fsSL "${app_url}" > /dev/null
 

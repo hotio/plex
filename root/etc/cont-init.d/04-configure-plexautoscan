@@ -8,7 +8,7 @@ if [[ ! -f "${CONFIG_DIR}/plexautoscan/config.json" ]]; then
     cp /etc/plexautoscan/config.json "${CONFIG_DIR}/plexautoscan/config.json"
     chown hotio:hotio "${CONFIG_DIR}/plexautoscan/config.json"
     password=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c"${1:-32}";echo;)
-    [[ ${DRONE} == true ]] && password=droneci
+    [[ ${GITHUB_CI} == true ]] && password=githubci
     sed -i "s#\"SERVER_PASS\": \".*\",#\"SERVER_PASS\": \"${password}\",#g" "${CONFIG_DIR}/plexautoscan/config.json" && echo "Your PlexAutoscan password is: ${password}"
 fi
 
