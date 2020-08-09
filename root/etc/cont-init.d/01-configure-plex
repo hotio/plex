@@ -38,7 +38,7 @@ fi
 # Setup Server's client identifier
 serial="$(getPref "MachineIdentifier")"
 if [[ -z "${serial}" ]]; then
-    serial="$(uuidgen)"
+    serial="$(cat /proc/sys/kernel/random/uuid)"
     setPref "MachineIdentifier" "${serial}"
 fi
 clientId="$(getPref "ProcessedMachineIdentifier")"

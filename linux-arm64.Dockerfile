@@ -11,7 +11,7 @@ VOLUME ["/transcode"]
 # install packages
 RUN apt update && \
     apt install -y --no-install-recommends --no-install-suggests \
-        xmlstarlet uuid-runtime && \
+        xmlstarlet && \
 # clean up
     apt autoremove -y && \
     apt clean && \
