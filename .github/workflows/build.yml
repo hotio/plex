@@ -51,7 +51,7 @@ jobs:
             --build-arg LABEL_VERSION="${PLEX_VERSION=1.20.1.3252-a78fef9a9}" \
             --build-arg PLEX_VERSION="${PLEX_VERSION=1.20.1.3252-a78fef9a9}" \
             --build-arg PLEXAUTOSCAN_VERSION="${PLEXAUTOSCAN_VERSION=4e31fb19d81ca9d7ff0fc2f362f9accfff979bc4}" \
-            --build-arg RCLONE_VERSION="${RCLONE_VERSION=1.52.3}" \
+            --build-arg RCLONE_VERSION="${RCLONE_VERSION=1.53.0}" \
             --file ./${ARCHITECTURE}.Dockerfile ./
 
       - name: Prepare for tests
