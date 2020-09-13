@@ -12,12 +12,15 @@ if [[ ${1} == "checkdigests" ]]; then
 elif [[ ${1} == "tests" ]]; then
     echo "List installed packages..."
     docker run --rm --entrypoint="" "${2}" apt list --installed
+    echo "Show rclone version info..."
+    docker run --rm --entrypoint="" "${2}" rclone version
     echo "Check if app works..."
     app_url="http://localhost:32400/web"
     docker run --rm --network host -d --name service -e DEBUG="yes" "${2}"
     currenttime=$(date +%s); maxtime=$((currenttime+60)); while (! curl -fsSL "${app_url}" > /dev/null) && [[ "$currenttime" -lt "$maxtime" ]]; do sleep 1; currenttime=$(date +%s); done
     curl -fsSL "${app_url}" > /dev/null
     status=$?
+    echo "Check if plex_autoscan works..."
     app_url="http://localhost:3468/githubci"
     currenttime=$(date +%s); maxtime=$((currenttime+60)); while (! curl -fsSL "${app_url}" > /dev/null) && [[ "$currenttime" -lt "$maxtime" ]]; do sleep 1; currenttime=$(date +%s); done
     curl -fsSL "${app_url}" > /dev/null
