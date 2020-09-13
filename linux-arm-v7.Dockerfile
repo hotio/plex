@@ -17,24 +17,9 @@ RUN apt update && \
     apt clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
-ARG PLEX_VERSION
+ARG VERSION
 
 # install app
-RUN debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "https://downloads.plex.tv/plex-media-server-new/${PLEX_VERSION}/debian/plexmediaserver_${PLEX_VERSION}_armhf.deb" && dpkg -x "${debfile}" "${APP_DIR}" && rm "${debfile}" && echo "${PLEX_VERSION}" > "${APP_DIR}/version"
+RUN debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "https://downloads.plex.tv/plex-media-server-new/${VERSION}/debian/plexmediaserver_${VERSION}_armhf.deb" && dpkg -x "${debfile}" "${APP_DIR}" && rm "${debfile}" && echo "${VERSION}" > "${APP_DIR}/version"
 
 COPY root/ /
-
-ARG LABEL_CREATED
-LABEL org.opencontainers.image.created=$LABEL_CREATED
-ARG LABEL_TITLE
-LABEL org.opencontainers.image.title=$LABEL_TITLE
-ARG LABEL_REVISION
-LABEL org.opencontainers.image.revision=$LABEL_REVISION
-ARG LABEL_SOURCE
-LABEL org.opencontainers.image.source=$LABEL_SOURCE
-ARG LABEL_VENDOR
-LABEL org.opencontainers.image.vendor=$LABEL_VENDOR
-ARG LABEL_URL
-LABEL org.opencontainers.image.url=$LABEL_URL
-ARG LABEL_VERSION
-LABEL org.opencontainers.image.version=$LABEL_VERSION
