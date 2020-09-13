@@ -1,4 +1,4 @@
-FROM hotio/base@sha256:d321c259765e6b160f297400e7eee4283bd52196eb8fd42fc12a3b474a743f28
+FROM hotio/base@sha256:46b5d575831eadb90c1a84a76c2c6d90cac327d03f42fec4d39e212c26afb56a
 
 ARG DEBIAN_FRONTEND="noninteractive"
 
