@@ -16,7 +16,7 @@ elif [[ ${1} == "tests" ]]; then
     docker run --rm --entrypoint="" "${2}" rclone version
     echo "Check if app works..."
     app_url="http://localhost:32400/web"
-    docker run --rm --network host -d --name service -e DEBUG="yes" "${2}"
+    docker run --rm --network host -d --name service -e DEBUG="yes" -e GITHUB_CI=true "${2}"
     currenttime=$(date +%s); maxtime=$((currenttime+60)); while (! curl -fsSL "${app_url}" > /dev/null) && [[ "$currenttime" -lt "$maxtime" ]]; do sleep 1; currenttime=$(date +%s); done
     curl -fsSL "${app_url}" > /dev/null
     status=$?
