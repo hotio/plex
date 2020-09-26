@@ -37,6 +37,10 @@ echo "Applying permissions to ${CONFIG_DIR}"
 chmod "=rwx" "${CONFIG_DIR}"
 chown hotio:hotio "${CONFIG_DIR}"
 
+echo "Applying permissions to /transcode"
+chmod "=rwx" "/transcode"
+chown hotio:hotio "/transcode"
+
 if [[ ! -d "${CONFIG_DIR}/app" ]]; then
     echo "Creating directory ${CONFIG_DIR}/app"
     mkdir "${CONFIG_DIR}/app"
