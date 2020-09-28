@@ -10,7 +10,7 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    target-branch: "stable"
+    target-branch: "release"
 
   - package-ecosystem: "github-actions"
     directory: "/"

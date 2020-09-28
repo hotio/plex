@@ -48,11 +48,10 @@ If `PLEX_LOGIN` + `PLEX_PASSWORD` are not empty and the file `/config/plexautosc
 
 ## Tags
 
-| Tag      | Description                                                                       |
-| ---------|-----------------------------------------------------------------------------------|
-| latest   | The same as `stable`                                                              |
-| stable   | Stable version                                                                    |
-| autoscan | Stable version, includes [Plex Autoscan](https://github.com/l3uddz/plex_autoscan) |
+| Tag              | Upstream                                                                     |
+| -----------------|------------------------------------------------------------------------------|
+| release (latest) | Releases                                                                     |
+| autoscan         | Releases, including [Plex Autoscan](https://github.com/l3uddz/plex_autoscan) |
 
 You can also find tags that reference a commit or version number.
 
