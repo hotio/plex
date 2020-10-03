@@ -13,35 +13,49 @@
 
 Just the basics to get the container running:
 
-```shell
-docker run --rm --name plex \
+```shell hl_lines="4 5 6 7 8 9 10 11 12 13"
+docker run --rm \
+    --name plex \
     -p 32400:32400 \
+    -e PUID=1000 \
+    -e PGID=1000 \
+    -e UMASK=002 \
+    -e TZ="Etc/UTC" \
+    -e ARGS="" \
+    -e DEBUG="no" \
+    -e PLEX_CLAIM="" \
+    -e ADVERTISE_IP="" \
+    -e ALLOWED_NETWORKS="" \
+    -e PLEX_PASS="no" \
     -v /<host_folder_config>:/config \
     -v /<host_folder_transcode>:/transcode \
     hotio/plex
 ```
 
-The environment variables below are all optional, the values you see are the defaults.
+The [highlighted](https://hotio.dev/containers/plex) variables are all optional, the values you see are the defaults. In most cases you'll need to add an additional volume (`-v`) or more, depending on your own personal preference, to get access to additional files.
 
-```shell
--e PUID=1000
--e PGID=1000
--e UMASK=002
--e TZ="Etc/UTC"
--e ARGS=""
--e DEBUG="no"
--e PLEX_CLAIM=""
--e ADVERTISE_IP=""
--e ALLOWED_NETWORKS=""
--e PLEX_PASS="no"
-```
+When using the `autoscan` tag.
 
-Only for the `autoscan` tag.
-
-```shell
--e PLEXAUTOSCAN_ARGS=""
--e PLEX_LOGIN=""
--e PLEX_PASSWORD=""
+```shell hl_lines="4 5 6 7 8 9 10 11 12 13 14 15 16"
+docker run --rm \
+    --name plex-autoscan \
+    -p 32400:32400 \
+    -e PUID=1000 \
+    -e PGID=1000 \
+    -e UMASK=002 \
+    -e TZ="Etc/UTC" \
+    -e ARGS="" \
+    -e DEBUG="no" \
+    -e PLEX_CLAIM="" \
+    -e ADVERTISE_IP="" \
+    -e ALLOWED_NETWORKS="" \
+    -e PLEX_PASS="no" \
+    -e PLEXAUTOSCAN_ARGS="" \
+    -e PLEX_LOGIN="" \
+    -e PLEX_PASSWORD="" \
+    -v /<host_folder_config>:/config \
+    -v /<host_folder_transcode>:/transcode \
+    hotio/plex:autoscan
 ```
 
 If `PLEX_LOGIN` + `PLEX_PASSWORD` are not empty and the file `/config/plexautoscan/plex.token` does not exist, an attempt is made to get a Plex token for PlexAutoscan.
