@@ -1,5 +1,3 @@
-# plex
-
 [<img src="https://hotio.dev/img/plex.png" alt="logo" height="130" width="130">](https://www.plex.tv)
 
 ![Base](https://img.shields.io/badge/base-ubuntu-orange)
