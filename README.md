@@ -1,6 +1,6 @@
 # plex
 
-![logo](https://hotio.dev/img/plex.png)
+[<img src="https://hotio.dev/img/plex.png" alt="logo" height="130" width="130">](https://www.plex.tv)
 
 ![Base](https://img.shields.io/badge/base-ubuntu-orange)
 [![GitHub](https://img.shields.io/badge/source-github-lightgrey)](https://github.com/hotio/docker-plex)
