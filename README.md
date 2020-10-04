@@ -60,10 +60,10 @@ If `PLEX_LOGIN` + `PLEX_PASSWORD` are not empty and the file `/config/plexautosc
 
 ## Tags
 
-| Tag                | Upstream                                                                     | Version |
-| -------------------|------------------------------------------------------------------------------|---------|
-| `release` (latest) | Releases                                                                     | ![version](https://img.shields.io/badge/dynamic/json?color=f5f5f5&style=flat-square&label=&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fdocker-hotio%2Fdocker-plex%2Frelease%2FVERSION.json) |
-| `autoscan`         | Releases, including [Plex Autoscan](https://github.com/l3uddz/plex_autoscan) | ![version](https://img.shields.io/badge/dynamic/json?color=f5f5f5&style=flat-square&label=&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fdocker-hotio%2Fdocker-plex%2Fautoscan%2FVERSION.json) |
+| Tag                | Upstream                                                                     | Version | Build |
+| -------------------|------------------------------------------------------------------------------|---------|-------|
+| `release` (latest) | Releases                                                                     | ![version](https://img.shields.io/badge/dynamic/json?color=f5f5f5&style=flat-square&label=&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fdocker-hotio%2Fdocker-plex%2Frelease%2FVERSION.json) | ![build](https://img.shields.io/github/workflow/status/docker-hotio/docker-plex/build/release?style=flat-square&label=) |
+| `autoscan`         | Releases, including [Plex Autoscan](https://github.com/l3uddz/plex_autoscan) | ![version](https://img.shields.io/badge/dynamic/json?color=f5f5f5&style=flat-square&label=&query=%24.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fdocker-hotio%2Fdocker-plex%2Fautoscan%2FVERSION.json) | ![build](https://img.shields.io/github/workflow/status/docker-hotio/docker-plex/build/autoscan?style=flat-square&label=) |
 
 You can also find tags that reference a commit or version number.
 
