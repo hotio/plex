@@ -30,7 +30,6 @@ elif [[ ${1} == "screenshot" ]]; then
 else
     version=$(curl -fsSL "https://plex.tv/api/downloads/5.json" | jq -r .computer.Linux.version)
     [[ -z ${version} ]] && exit 1
-    echo "VERSION=${version}" > VERSION
-    echo '{"version":"'"${version}"'"}' > VERSION.json
+    echo '{"version":"'"${version}"'"}' | jq . > VERSION.json
     echo "##[set-output name=version;]${version}"
 fi
