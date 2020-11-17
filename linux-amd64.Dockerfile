@@ -11,7 +11,9 @@ VOLUME ["/transcode"]
 # install packages
 RUN apt update && \
     apt install -y --no-install-recommends --no-install-suggests \
-        xmlstarlet && \
+        xmlstarlet \
+        beignet-opencl-icd \
+        ocl-icd-libopencl1 && \
 # clean up
     apt autoremove -y && \
     apt clean && \
