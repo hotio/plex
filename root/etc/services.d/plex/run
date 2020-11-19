@@ -11,7 +11,6 @@ PLEX_MEDIA_SERVER_INFO_VENDOR="Docker"                                          
 PLEX_MEDIA_SERVER_INFO_DEVICE="Docker Container (hotio)"                                    && export PLEX_MEDIA_SERVER_INFO_DEVICE
 PLEX_MEDIA_SERVER_INFO_MODEL="$(uname -m)"                                                  && export PLEX_MEDIA_SERVER_INFO_MODEL
 PLEX_MEDIA_SERVER_INFO_PLATFORM_VERSION="$(uname -r)"                                       && export PLEX_MEDIA_SERVER_INFO_PLATFORM_VERSION
-LD_LIBRARY_PATH="${APP_DIR}/usr/lib/plexmediaserver:${APP_DIR}/usr/lib/plexmediaserver/lib" && export LD_LIBRARY_PATH
 
 redirect_cmd() {
     if [[ "${DEBUG}" == "yes" ]]; then
