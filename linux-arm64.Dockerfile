@@ -19,7 +19,7 @@ RUN apt update && \
 
 ARG VERSION
 
-# install app
+# install app, use http:// for qemu segmentation fault
 RUN debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "http://downloads.plex.tv/plex-media-server-new/${VERSION}/debian/plexmediaserver_${VERSION}_arm64.deb" && dpkg -x "${debfile}" "${APP_DIR}" && rm "${debfile}" && echo "${VERSION}" > "${APP_DIR}/version"
 
 COPY root/ /
