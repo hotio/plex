@@ -3,7 +3,7 @@
 if [[ ${1} == "checkdigests" ]]; then
     export DOCKER_CLI_EXPERIMENTAL=enabled
     image="hotio/base"
-    tag="bionic"
+    tag="focal"
     manifest=$(docker manifest inspect ${image}:${tag})
     [[ -z ${manifest} ]] && exit 1
     digest=$(echo "${manifest}" | jq -r '.manifests[] | select (.platform.architecture == "amd64" and .platform.os == "linux").digest') && sed -i "s#FROM ${image}.*\$#FROM ${image}@${digest}#g" ./linux-amd64.Dockerfile  && echo "${digest}"

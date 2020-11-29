@@ -1,4 +1,4 @@
-FROM hotio/base@sha256:63aa26d92da683d74489cc157582ec8a593e7a6fd99eac9223bcc6bc2e05276e
+FROM hotio/base@sha256:c5a24a43eca791222d759aa6357f7cb16f975e96ea497c9ec28d9b6d9a00d91d
 
 ARG DEBIAN_FRONTEND="noninteractive"
 
@@ -20,6 +20,6 @@ RUN apt update && \
 ARG VERSION
 
 # install app
-RUN debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "https://downloads.plex.tv/plex-media-server-new/${VERSION}/debian/plexmediaserver_${VERSION}_arm64.deb" && dpkg -x "${debfile}" "${APP_DIR}" && rm "${debfile}" && echo "${VERSION}" > "${APP_DIR}/version"
+RUN debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "http://downloads.plex.tv/plex-media-server-new/${VERSION}/debian/plexmediaserver_${VERSION}_arm64.deb" && dpkg -x "${debfile}" "${APP_DIR}" && rm "${debfile}" && echo "${VERSION}" > "${APP_DIR}/version"
 
 COPY root/ /
