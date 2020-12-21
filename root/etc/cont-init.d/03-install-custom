@@ -1,0 +1,18 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+umask "${UMASK}"
+
+INSTALLED_VERSION=$(cat "${APP_DIR}/version")
+
+if [[ "${PLEX_PASS}" == "http"* ]] && [[ "${PLEX_PASS}" != "${INSTALLED_VERSION}" ]]; then
+    echo "Attempting custom installation...don't come crying for support!"
+
+    debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "${PLEX_PASS}" && rm -rf "${APP_DIR:?}/"{etc,usr,version} && dpkg -x "${debfile}" "${APP_DIR}" && rm -f "${debfile}" && echo "${PLEX_PASS}" > "${APP_DIR}/version" && INSTALL_OK="yes"
+    if [[ "${INSTALL_OK}" != "yes" ]]; then
+        echo -e '\e[31m'"Installation of \"${PLEX_PASS}\" failed!"'\e[0m'
+        exit 1
+    else
+        echo "Installation of \"${PLEX_PASS}\" succeeded."
+    fi
+fi
