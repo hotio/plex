@@ -22,7 +22,7 @@ function setPref {
     fi
 }
 
-prefFile="${CONFIG_DIR}/app/Plex Media Server/Preferences.xml"
+prefFile="${CONFIG_DIR}/Preferences.xml"
 
 # Create empty Preferences.xml file if it doesn't exist already
 if [[ ! -f "${prefFile}" ]]; then
