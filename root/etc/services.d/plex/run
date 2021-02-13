@@ -12,5 +12,4 @@ PLEX_MEDIA_SERVER_INFO_DEVICE="Docker Container (hotio)"      && export PLEX_MED
 PLEX_MEDIA_SERVER_INFO_MODEL="$(uname -m)"                    && export PLEX_MEDIA_SERVER_INFO_MODEL
 PLEX_MEDIA_SERVER_INFO_PLATFORM_VERSION="$(uname -r)"         && export PLEX_MEDIA_SERVER_INFO_PLATFORM_VERSION
 
-# shellcheck disable=SC2086
-exec s6-setuidgid hotio "${APP_DIR}/usr/lib/plexmediaserver/Plex Media Server" ${ARGS}
+exec s6-setuidgid hotio "${APP_DIR}/usr/lib/plexmediaserver/Plex Media Server"
