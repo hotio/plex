@@ -31,6 +31,7 @@ elif [[ ${1} == "screenshot" ]]; then
 else
     version=$(curl -fsSL "https://plex.tv/api/downloads/5.json" | jq -r .computer.Linux.version)
     [[ -z ${version} ]] && exit 1
-    echo '{"version":"'"${version}"'"}' | jq . > VERSION.json
-    echo "##[set-output name=version;]${version}"
+    intel_compute_runtime_version=$(curl -fsSL "https://api.github.com/repos/intel/compute-runtime/releases/latest" | jq -r '.tag_name')
+    [[ -z ${intel_compute_runtime_version} ]] && exit 1
+    echo '{"version":"'"${version}"'","intel_compute_runtime_version":"'"${intel_compute_runtime_version}"'"}' | jq . > VERSION.json
 fi

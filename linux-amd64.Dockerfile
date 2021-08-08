@@ -19,9 +19,19 @@ RUN apt update && \
     apt clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
-ARG VERSION
+# install intel compute runtime
+ARG INTEL_COMPUTE_RUNTIME_VERSION
+RUN INTEL_URLS=$(curl -fsSL "https://api.github.com/repos/intel/compute-runtime/releases/tags/${INTEL_COMPUTE_RUNTIME_VERSION}" | jq -r '.body' | grep wget | sed 's|wget ||g') && \
+    mkdir -p /intel && \
+    for i in ${INTEL_URLS}; do \
+        i=$(echo ${i} | tr -d '\r'); \
+        curl -o "/intel/$(basename ${i})" -L "${i}"; \
+    done && \
+    dpkg -i /intel/*.deb && \
+    rm -rf /intel
 
-# install app
+# install plex
+ARG VERSION
 RUN debfile="/tmp/plex.deb" && wget2 -nc -O "${debfile}" "https://downloads.plex.tv/plex-media-server-new/${VERSION}/debian/plexmediaserver_${VERSION}_amd64.deb" && dpkg -x "${debfile}" "${APP_DIR}" && rm "${debfile}" && echo "${VERSION}" > "${APP_DIR}/version" && \
     mkdir "${APP_DIR}/config" && ln -s "${CONFIG_DIR}" "${APP_DIR}/config/Plex Media Server"
 
