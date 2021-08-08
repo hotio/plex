@@ -85,3 +85,6 @@ if [[ -z "$(getPref "TranscoderTempDirectory")" ]]; then
     echo "Setting TranscoderTempDirectory to: /transcode"
     setPref "TranscoderTempDirectory" "/transcode"
 fi
+
+# Remove pid file
+rm -f "${CONFIG_DIR}/plexmediaserver.pid"
