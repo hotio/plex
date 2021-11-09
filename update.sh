@@ -32,7 +32,6 @@ else
     version=$(curl -fsSL "https://plex.tv/api/downloads/5.json" | jq -r .computer.Linux.version)
     [[ -z ${version} ]] && exit 1
     intel_compute_runtime_version=$(curl -fsSL "https://api.github.com/repos/intel/compute-runtime/releases/latest" | jq -r '.tag_name')
-    intel_compute_runtime_version="21.43.21438"
     [[ -z ${intel_compute_runtime_version} ]] && exit 1
     echo '{"version":"'"${version}"'","intel_compute_runtime_version":"'"${intel_compute_runtime_version}"'"}' | jq . > VERSION.json
 fi
