@@ -1,0 +1,19 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+umask "${UMASK}"
+
+if [[ "${SYSCTL_MAX_USER_WATCHES}" -gt 0 ]]; then
+    echo "Attempting to update max_user_watches sysctl setting"
+
+    echo "fs.inotify.max_user_watches=${SYSCTL_MAX_USER_WATCHES}" >> /etc/sysctl.conf
+
+    sysctl -p && UPDATED_OK="yes"
+
+    if [[ "${INSTALL_OK}" != "yes" ]]; then
+        echo -e '\e[31m'"Updating fs.inotify.max_user_watches failed!"'\e[0m'
+        exit 1
+    else
+        echo "Updating fs.inotify.max_user_watches succeeded."
+    fi
+fi
