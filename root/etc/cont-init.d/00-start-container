@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv bash
+#!/command/with-contenv bash
 # shellcheck shell=bash
 
 umask "${UMASK}"
@@ -38,12 +38,3 @@ chown hotio:hotio "${CONFIG_DIR}"
 echo "Applying permissions to /transcode"
 chmod "=rwx" "/transcode"
 chown hotio:hotio "/transcode"
-
-if [[ -d "${CONFIG_DIR}/app/Plex Media Server" ]]; then
-    if [[ -n "$(ls -A "${CONFIG_DIR}/app/Plex Media Server")" ]]; then
-        echo "Migrating files from \"${CONFIG_DIR}/app/Plex Media Server\" to \"${CONFIG_DIR}\"..."
-        shopt -s dotglob
-        mv -f "${CONFIG_DIR}/app/Plex Media Server/"* "${CONFIG_DIR}" > /dev/null 2>&1 && rmdir "${CONFIG_DIR}/app/Plex Media Server" && rmdir "${CONFIG_DIR}/app"
-        shopt -u dotglob
-    fi
-fi
