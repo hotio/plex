@@ -32,5 +32,6 @@ else
     [[ -z ${version} ]] && exit 1
     intel_compute_runtime_version=$(curl -fsSL "https://api.github.com/repos/intel/compute-runtime/releases/latest" | jq -r '.tag_name')
     [[ -z ${intel_compute_runtime_version} ]] && exit 1
-    echo '{"version":"'"${version}"'","intel_compute_runtime_version":"'"${intel_compute_runtime_version}"'"}' | jq . > VERSION.json
+    version_json=$(cat ./VERSION.json)
+    jq '.version = "'"${version}"'" | .intel_compute_runtime_version = "'"${intel_compute_runtime_version}"'"' <<< "${version_json}" > VERSION.json
 fi
