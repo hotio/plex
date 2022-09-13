@@ -3,7 +3,7 @@
   "intel_compute_runtime_version": "22.35.24055",
   "upstream_image": "cr.hotio.dev/hotio/base",
   "upstream_tag": "focal",
-  "upstream_digest_amd64": "sha256:f4c5147cc3659574c0e948884f93954f35029bef2ae53c03949896a981a78ba8",
-  "upstream_digest_arm64": "sha256:db1cde4fa018c4e9a472a32fbfeabe04ec7a5c278813e44c1d347d06e1ceda4f",
+  "upstream_digest_amd64": "sha256:9fa19b166d83437c38e14d84a4a260521c5255415862b27f9bef88251e9586d7",
+  "upstream_digest_arm64": "sha256:d3b35bcdd3a5f9d51914b727757b4cb4b6f03d0003c6c0bdbb98bc23b22bc80a",
   "test_url": "http://localhost:32400/web"
 }
