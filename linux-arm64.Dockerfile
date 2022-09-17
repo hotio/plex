@@ -7,9 +7,7 @@ ARG DEBIAN_FRONTEND="noninteractive"
 
 ENV PLEX_CLAIM="" ADVERTISE_IP="" ALLOWED_NETWORKS="" PLEX_PASS="no"
 
-EXPOSE 32400/tcp
-
-VOLUME ["/transcode"]
+VOLUME ["${CONFIG_DIR}","/transcode"]
 
 # install packages
 RUN apt update && \
@@ -19,7 +17,6 @@ RUN apt update && \
     apt autoremove -y && \
     apt clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
-
 
 # install plex
 ARG VERSION
