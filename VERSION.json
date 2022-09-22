@@ -1,4 +1,5 @@
 {
+  "latest": true,
   "description": "Stable",
   "version": "1.28.2.6151-914ddd2b3",
   "intel_compute_runtime_version": "22.35.24055",
