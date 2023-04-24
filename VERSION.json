@@ -2,7 +2,7 @@
   "latest": true,
   "description": "Stable",
   "version": "1.32.0.6973-a787c5a8e",
-  "intel_compute_runtime_version": "23.05.25593.11",
+  "intel_compute_runtime_version": "23.09.25812.14",
   "upstream_image": "cr.hotio.dev/hotio/base",
   "upstream_tag": "focal",
   "upstream_digest_amd64": "sha256:7952231967b198d718495f5d146f9c91af7555dd7b47252792020b1125778ccf",
