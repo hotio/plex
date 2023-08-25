@@ -11,8 +11,9 @@ function getPref {
 
 prefFile="${CONFIG_DIR}/Preferences.xml"
 
-if [[ "${PLEX_PASS}" == "yes" ]]; then
-    echo "Attempting Plex Pass beta installation..."
+[[ -n "${PLEX_PASS}" ]] && PLEX_BETA_INSTALL=${PLEX_PASS}
+if [[ "${PLEX_BETA_INSTALL}" == "yes" ]]; then
+    echo "Attempting beta installation..."
 
     token="$(getPref "PlexOnlineToken")"
     if [[ -z "${token}" ]]; then
