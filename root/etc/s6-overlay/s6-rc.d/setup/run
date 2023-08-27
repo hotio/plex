@@ -1,0 +1,215 @@
+#!/command/with-contenv bash
+# shellcheck shell=bash
+
+umask "${UMASK}"
+
+echo "
+----------------------------------------------------------------------
+ENVIRONMENT
+----------------------------------------------------------------------
+PUID=${PUID}
+PGID=${PGID}
+UMASK=${UMASK}
+TZ=${TZ}
+PLEX_CLAIM_TOKEN=${PLEX_CLAIM_TOKEN}
+PLEX_ADVERTISE_URL=${PLEX_ADVERTISE_URL}
+PLEX_NO_AUTH_NETWORKS=${PLEX_NO_AUTH_NETWORKS}
+PLEX_BETA_INSTALL=${PLEX_BETA_INSTALL}
+----------------------------------------------------------------------
+"
+
+if [[ ! "${PUID}" -eq 0 ]] && [[ ! "${PGID}" -eq 0 ]]; then
+    echo "Executing usermod..."
+    mkdir "/tmp/temphome"
+    usermod -d "/tmp/temphome" hotio
+    usermod -o -u "${PUID}" hotio
+    usermod -d "${CONFIG_DIR}" hotio
+    rm -rf "/tmp/temphome"
+    groupmod -o -g "${PGID}" hotio
+else
+    echo "Running as root is not supported, please fix your PUID and PGID!"
+    exit 1
+fi
+
+echo "Applying permissions to ${CONFIG_DIR}"
+chmod "=rwx" "${CONFIG_DIR}"
+chown hotio:hotio "${CONFIG_DIR}"
+
+echo "Applying permissions to /transcode"
+chmod "=rwx" "/transcode"
+chown hotio:hotio "/transcode"
+
+############
+## Functions
+function getPref {
+    local key="$1"
+    xmlstarlet sel -T -t -m "/Preferences" -v "@${key}" -n "${prefFile}"
+}
+
+function setPref {
+    local key="$1"
+    local value="$2"
+    count="$(xmlstarlet sel -t -v "count(/Preferences/@${key})" "${prefFile}")"
+    count=$((count + 0))
+    if [[ $count -gt 0 ]]; then
+        xmlstarlet ed --inplace --update "/Preferences/@${key}" -v "${value}" "${prefFile}"
+    else
+        xmlstarlet ed --inplace --insert "/Preferences"  --type attr -n "${key}" -v "${value}" "${prefFile}"
+    fi
+}
+
+#################
+## Configure Plex
+prefFile="${CONFIG_DIR}/Preferences.xml"
+
+# Create empty Preferences.xml file if it doesn't exist already
+if [[ ! -f "${prefFile}" ]]; then
+    echo "Creating empty Preferences.xml..."
+    mkdir -p "$(dirname "${prefFile}")"
+    cat > "${prefFile}" <<-EOF
+<?xml version="1.0" encoding="utf-8"?>
+<Preferences/>
+EOF
+    chown -R hotio:hotio "$(dirname "${prefFile}")"
+fi
+
+# Setup Server's client identifier
+serial="$(getPref "MachineIdentifier")"
+if [[ -z "${serial}" ]]; then
+    serial="$(cat /proc/sys/kernel/random/uuid)"
+    setPref "MachineIdentifier" "${serial}"
+fi
+clientId="$(getPref "ProcessedMachineIdentifier")"
+if [[ -z "${clientId}" ]]; then
+    clientId="$(echo -n "${serial}- Plex Media Server" | sha1sum | cut -b 1-40)"
+    setPref "ProcessedMachineIdentifier" "${clientId}"
+fi
+
+# Get server token and only turn claim token into server token if we have former but not latter.
+token="$(getPref "PlexOnlineToken")"
+if [[ -n "${PLEX_CLAIM_TOKEN}" ]] && [[ -z "${token}" ]]; then
+    echo "Attempting to obtain server token from claim token..."
+    loginInfo="$(curl -fsSL -X POST \
+        -H 'X-Plex-Client-Identifier: '"${clientId}" \
+        -H 'X-Plex-Product: Plex Media Server'\
+        -H 'X-Plex-Version: 1.1' \
+        -H 'X-Plex-Provides: server' \
+        -H 'X-Plex-Platform: Linux' \
+        -H 'X-Plex-Platform-Version: 1.0' \
+        -H 'X-Plex-Device-Name: PlexMediaServer' \
+        -H 'X-Plex-Device: Linux' \
+        "https://plex.tv/api/claim/exchange?token=${PLEX_CLAIM_TOKEN}")"
+    token="$(echo "$loginInfo" | sed -n 's/.*<authentication-token>\(.*\)<\/authentication-token>.*/\1/p')"
+
+    if [[ "$token" ]]; then
+        echo "Token obtained successfully!"
+        setPref "PlexOnlineToken" "${token}"
+    fi
+fi
+
+# Set other preferences
+[[ -n "${ADVERTISE_IP}" ]] && PLEX_ADVERTISE_URL=${ADVERTISE_IP}
+if [[ -n "${PLEX_ADVERTISE_URL}" ]]; then
+    echo "Setting customConnections to: ${PLEX_ADVERTISE_URL}"
+    setPref "customConnections" "${PLEX_ADVERTISE_URL}"
+fi
+
+[[ -n "${ALLOWED_NETWORKS}" ]] && PLEX_NO_AUTH_NETWORKS=${ALLOWED_NETWORKS}
+if [[ -n "${PLEX_NO_AUTH_NETWORKS}" ]]; then
+    echo "Setting allowedNetworks to: ${PLEX_NO_AUTH_NETWORKS}"
+    setPref "allowedNetworks" "${PLEX_NO_AUTH_NETWORKS}"
+fi
+
+# Set transcoder directory if not yet set
+if [[ -z "$(getPref "TranscoderTempDirectory")" ]]; then
+    echo "Setting TranscoderTempDirectory to: /transcode"
+    setPref "TranscoderTempDirectory" "/transcode"
+fi
+
+# Remove pid file
+rm -f "${CONFIG_DIR}/plexmediaserver.pid"
+
+####################
+## Install Plex Beta
+prefFile="${CONFIG_DIR}/Preferences.xml"
+
+[[ -n "${PLEX_PASS}" ]] && PLEX_BETA_INSTALL=${PLEX_PASS}
+if [[ "${PLEX_BETA_INSTALL}" == "yes" ]]; then
+    echo "Attempting beta installation..."
+
+    token="$(getPref "PlexOnlineToken")"
+    if [[ -z "${token}" ]]; then
+        echo "No token has been found! Aborting installation."
+        exit 0
+    fi
+
+    PLEX_PASS_VERSION=$(curl -fsSL "https://plex.tv/api/downloads/5.json?channel=plexpass&X-Plex-Token=${token}" | jq -r .computer.Linux.version)
+    PUBLIC_VERSION=$(curl -fsSL "https://plex.tv/api/downloads/5.json" | jq -r .computer.Linux.version)
+
+    if [[ "${PUBLIC_VERSION}" == "${PLEX_PASS_VERSION}" ]]; then
+        echo "No eligable beta found! Aborting installation."
+        exit 0
+    fi
+
+    INSTALLED_VERSION=$(cat "${APP_DIR}/version")
+    if [[ "${INSTALLED_VERSION}" == "${PLEX_PASS_VERSION}" ]]; then
+        echo "Already on the latest beta \"${PLEX_PASS_VERSION}\", no update required. Aborting installation."
+        exit 0
+    fi
+
+    case "${BUILD_ARCHITECTURE}" in
+        linux-amd64)
+            architecture="amd64"
+            ;;
+        linux-arm64)
+            architecture="arm64"
+            ;;
+        linux-arm-v7)
+            architecture="armhf"
+            ;;
+    esac
+
+    debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "https://downloads.plex.tv/plex-media-server-new/${PLEX_PASS_VERSION}/debian/plexmediaserver_${PLEX_PASS_VERSION}_${architecture}.deb" && rm -rf "${APP_DIR:?}/"{etc,usr,version} && dpkg -x "${debfile}" "${APP_DIR}" && rm -f "${debfile}" && echo "${PLEX_PASS_VERSION}" > "${APP_DIR}/version" && INSTALL_OK="yes"
+    if [[ "${INSTALL_OK}" != "yes" ]]; then
+        echo -e '\e[31m'"Installation of beta \"${PLEX_PASS_VERSION}\" failed!"'\e[0m'
+        exit 1
+    else
+        echo "Installation of beta \"${PLEX_PASS_VERSION}\" succeeded."
+    fi
+fi
+
+######################
+## Install Plex Custom
+INSTALLED_VERSION=$(cat "${APP_DIR}/version")
+
+[[ -n "${PLEX_PASS}" ]] && PLEX_BETA_INSTALL=${PLEX_PASS}
+if [[ "${PLEX_BETA_INSTALL}" == "http"* ]] && [[ "${PLEX_BETA_INSTALL}" != "${INSTALLED_VERSION}" ]]; then
+    echo "Attempting custom installation...don't come crying for support!"
+
+    debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "${PLEX_BETA_INSTALL}" && rm -rf "${APP_DIR:?}/"{etc,usr,version} && dpkg -x "${debfile}" "${APP_DIR}" && rm -f "${debfile}" && echo "${PLEX_BETA_INSTALL}" > "${APP_DIR}/version" && INSTALL_OK="yes"
+    if [[ "${INSTALL_OK}" != "yes" ]]; then
+        echo -e '\e[31m'"Installation of \"${PLEX_BETA_INSTALL}\" failed!"'\e[0m'
+        exit 1
+    else
+        echo "Installation of \"${PLEX_BETA_INSTALL}\" succeeded."
+    fi
+fi
+
+#############
+## HW Support
+DEVICES=$(find /dev/dri /dev/dvb -type c -print 2>/dev/null)
+
+for i in ${DEVICES}; do
+    # Get the group ID and NAME (if exists) for the current device in the list
+    DEVICE_GROUP_ID=$(stat -c '%g' "$i")
+    DEVICE_GROUP_NAME=$(getent group "${DEVICE_GROUP_ID}" | awk -F: '{print $1}')
+
+    # If group NAME doesn't exist, create it and assign it the group ID
+    if [[ -z "${DEVICE_GROUP_NAME}" ]]; then
+        DEVICE_GROUP_NAME="video${RANDOM}"
+        groupadd -g "${DEVICE_GROUP_ID}" "${DEVICE_GROUP_NAME}"
+    fi
+
+    # If the user hotio isn't a member of the group, add him
+    getent group "${DEVICE_GROUP_NAME}" | grep -q hotio || usermod -a -G "${DEVICE_GROUP_NAME}" hotio
+done

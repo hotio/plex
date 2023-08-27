@@ -24,4 +24,3 @@ RUN debfile="/tmp/plex.deb" && wget2 -nc -O "${debfile}" "https://downloads.plex
     mkdir "${APP_DIR}/config" && ln -s "${CONFIG_DIR}" "${APP_DIR}/config/Plex Media Server"
 
 COPY root/ /
-RUN chmod -R +x /etc/cont-init.d/ /etc/services.d/
