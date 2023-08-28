@@ -142,7 +142,7 @@ rm -f "${CONFIG_DIR}/plexmediaserver.pid"
 prefFile="${CONFIG_DIR}/Preferences.xml"
 
 [[ -n "${PLEX_PASS}" ]] && PLEX_BETA_INSTALL=${PLEX_PASS}
-if [[ "${PLEX_BETA_INSTALL}" == "yes" ]]; then
+if [[ "${PLEX_BETA_INSTALL}" == "yes" ]] || [[ "${PLEX_BETA_INSTALL}" == "true" ]]; then
     echo "Attempting beta installation..."
 
     token="$(getPref "PlexOnlineToken")"
