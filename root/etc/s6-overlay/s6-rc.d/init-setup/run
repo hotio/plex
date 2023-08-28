@@ -3,6 +3,14 @@
 
 umask "${UMASK}"
 
+mask() {
+    local n=3
+    [[ ${#1} -le 5 ]] && n=$(( ${#1} - 3 ))
+    local a="${1:0:${#1}-n}"
+    local b="${1:${#1}-n}"
+    printf "%s%s\n" "${a//?/*}" "$b"
+}
+
 echo "
 ----------------------------------------------------------------------
 ENVIRONMENT
@@ -11,7 +19,7 @@ PUID=${PUID}
 PGID=${PGID}
 UMASK=${UMASK}
 TZ=${TZ}
-PLEX_CLAIM_TOKEN=${PLEX_CLAIM_TOKEN}
+PLEX_CLAIM_TOKEN=$(mask "${PLEX_CLAIM_TOKEN}")
 PLEX_ADVERTISE_URL=${PLEX_ADVERTISE_URL}
 PLEX_NO_AUTH_NETWORKS=${PLEX_NO_AUTH_NETWORKS}
 PLEX_BETA_INSTALL=${PLEX_BETA_INSTALL}
