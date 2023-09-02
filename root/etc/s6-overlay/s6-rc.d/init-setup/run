@@ -172,12 +172,9 @@ if [[ "${PLEX_BETA_INSTALL}" == "yes" ]] || [[ "${PLEX_BETA_INSTALL}" == "true" 
         linux-arm64)
             architecture="arm64"
             ;;
-        linux-arm-v7)
-            architecture="armhf"
-            ;;
     esac
 
-    debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "https://downloads.plex.tv/plex-media-server-new/${PLEX_PASS_VERSION}/debian/plexmediaserver_${PLEX_PASS_VERSION}_${architecture}.deb" && rm -rf "${APP_DIR:?}/"{etc,usr,version} && dpkg -x "${debfile}" "${APP_DIR}" && rm -f "${debfile}" && echo "${PLEX_PASS_VERSION}" > "${APP_DIR}/version" && INSTALL_OK="yes"
+    debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "https://downloads.plex.tv/plex-media-server-new/${PLEX_PASS_VERSION}/debian/plexmediaserver_${PLEX_PASS_VERSION}_${architecture}.deb" && dpkg -i --force-confold "${debfile}" && rm -f "${debfile}" && echo "${PLEX_PASS_VERSION}" > "${APP_DIR}/version" && INSTALL_OK="yes"
     if [[ "${INSTALL_OK}" != "yes" ]]; then
         echo -e '\e[31m'"Installation of beta \"${PLEX_PASS_VERSION}\" failed!"'\e[0m'
         exit 1
@@ -194,7 +191,7 @@ INSTALLED_VERSION=$(cat "${APP_DIR}/version")
 if [[ "${PLEX_BETA_INSTALL}" == "http"* ]] && [[ "${PLEX_BETA_INSTALL}" != "${INSTALLED_VERSION}" ]]; then
     echo "Attempting custom installation...don't come crying for support!"
 
-    debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "${PLEX_BETA_INSTALL}" && rm -rf "${APP_DIR:?}/"{etc,usr,version} && dpkg -x "${debfile}" "${APP_DIR}" && rm -f "${debfile}" && echo "${PLEX_BETA_INSTALL}" > "${APP_DIR}/version" && INSTALL_OK="yes"
+    debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "${PLEX_BETA_INSTALL}" && dpkg -i --force-confold "${debfile}" && rm -f "${debfile}" && echo "${PLEX_BETA_INSTALL}" > "${APP_DIR}/version" && INSTALL_OK="yes"
     if [[ "${INSTALL_OK}" != "yes" ]]; then
         echo -e '\e[31m'"Installation of \"${PLEX_BETA_INSTALL}\" failed!"'\e[0m'
         exit 1
