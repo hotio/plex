@@ -5,7 +5,7 @@
   "intel_compute_runtime_version": "23.22.26516.18",
   "upstream_image": "cr.hotio.dev/hotio/base",
   "upstream_tag": "jammy",
-  "upstream_digest_amd64": "sha256:8aa161ec0bfeba0f716b1753550f49ef39a0b87d748755e2921995705bcf1d33",
-  "upstream_digest_arm64": "sha256:d6d42221fa1e786713f502738122f91db565d83f1451c1ce11928d1650d928f6",
+  "upstream_digest_amd64": "sha256:838c87b8ba86c42f778db93372f3bcaf7595c08bbaacd317c85a268e8922389e",
+  "upstream_digest_arm64": "sha256:51ef93b7d7aebcde3e34c4ea1f8ba6159f28d9ba6d523bb7f6b8ad4facb3cf0c",
   "test_url": "http://localhost:32400/web"
 }
