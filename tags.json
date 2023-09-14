@@ -1,12 +1,12 @@
 {
   "release": {
     "description": "Stable",
-    "last_updated": "2023-09-13T14:50:10.784Z",
+    "last_updated": "2023-09-14T14:50:44.281Z",
     "latest": true,
     "tags": [
       "release",
-      "release-1.32.5.7349-8f4248874",
-      "release-102dc99"
+      "release-1.32.6.7468-07e0d4a7e",
+      "release-b5c63be"
     ]
   }
 }
