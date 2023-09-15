@@ -1,4 +1,14 @@
 {
+  "cr": {
+    "description": "Stable",
+    "last_updated": "2023-09-15T06:49:08.470Z",
+    "latest": false,
+    "tags": [
+      "cr",
+      "cr-1.32.6.7468-07e0d4a7e",
+      "cr-2c75a38"
+    ]
+  },
   "release": {
     "description": "Stable",
     "last_updated": "2023-09-14T14:50:44.281Z",
