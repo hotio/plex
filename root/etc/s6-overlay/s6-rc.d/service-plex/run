@@ -12,4 +12,5 @@ PLEX_MEDIA_SERVER_INFO_DEVICE="Docker Container (hotio)"      && export PLEX_MED
 PLEX_MEDIA_SERVER_INFO_MODEL="$(uname -m)"                    && export PLEX_MEDIA_SERVER_INFO_MODEL
 PLEX_MEDIA_SERVER_INFO_PLATFORM_VERSION="$(uname -r)"         && export PLEX_MEDIA_SERVER_INFO_PLATFORM_VERSION
 
+echo -e '\n##################################\n## IGNORE THE ERROR MESSAGE:    ##\n## Critical: libusb_init failed ##\n##################################\n'
 exec s6-setuidgid hotio "/usr/lib/plexmediaserver/Plex Media Server"
