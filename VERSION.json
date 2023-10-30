@@ -1,7 +1,7 @@
 {
   "latest": true,
   "description": "Stable",
-  "version": "1.32.6.7557-1cf77d501",
+  "version": "1.32.7.7621-871adbd44",
   "upstream_image": "ghcr.io/hotio/base",
   "upstream_tag": "jammy",
   "upstream_digest_amd64": "sha256:c017296d1d068a545ef0a0d0006fc674d519d7f08a7b9d1117b8af15a93ae4a7",
