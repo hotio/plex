@@ -23,6 +23,7 @@ PLEX_CLAIM_TOKEN=$(mask "${PLEX_CLAIM_TOKEN}")
 PLEX_ADVERTISE_URL=${PLEX_ADVERTISE_URL}
 PLEX_NO_AUTH_NETWORKS=${PLEX_NO_AUTH_NETWORKS}
 PLEX_BETA_INSTALL=${PLEX_BETA_INSTALL}
+PLEX_PURGE_CODECS=${PLEX_PURGE_CODECS}
 ----------------------------------------------------------------------
 "
 
@@ -218,3 +219,10 @@ for i in ${DEVICES}; do
     # If the user hotio isn't a member of the group, add him
     getent group "${DEVICE_GROUP_NAME}" | grep -q hotio || usermod -a -G "${DEVICE_GROUP_NAME}" hotio
 done
+
+######################
+## Purge Codecs folder
+if [[ "${PLEX_PURGE_CODECS}" == "true" ]]; then
+    echo "Purging Codecs folder..."
+    rm -rf "${CONFIG_DIR}/Codecs"
+fi
