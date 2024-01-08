@@ -224,5 +224,5 @@ done
 ## Purge Codecs folder
 if [[ "${PLEX_PURGE_CODECS}" == "true" ]]; then
     echo "Purging Codecs folder..."
-    find "${CONFIG_DIR}/Codecs" -mindepth 1 -not -name '.device-id' -delete
+    find "${CONFIG_DIR}/Codecs" -mindepth 1 -not -name '.device-id' -print -delete
 fi
