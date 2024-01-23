@@ -13,12 +13,8 @@ mask() {
 
 echo "
 ----------------------------------------------------------------------
-ENVIRONMENT
+ENVIRONMENT APP
 ----------------------------------------------------------------------
-PUID=${PUID}
-PGID=${PGID}
-UMASK=${UMASK}
-TZ=${TZ}
 PLEX_CLAIM_TOKEN=$(mask "${PLEX_CLAIM_TOKEN}")
 PLEX_ADVERTISE_URL=${PLEX_ADVERTISE_URL}
 PLEX_NO_AUTH_NETWORKS=${PLEX_NO_AUTH_NETWORKS}
@@ -26,23 +22,6 @@ PLEX_BETA_INSTALL=${PLEX_BETA_INSTALL}
 PLEX_PURGE_CODECS=${PLEX_PURGE_CODECS}
 ----------------------------------------------------------------------
 "
-
-if [[ ! "${PUID}" -eq 0 ]] && [[ ! "${PGID}" -eq 0 ]]; then
-    echo "Executing usermod..."
-    mkdir "/tmp/temphome"
-    usermod -d "/tmp/temphome" hotio
-    usermod -o -u "${PUID}" hotio
-    usermod -d "${CONFIG_DIR}" hotio
-    rm -rf "/tmp/temphome"
-    groupmod -o -g "${PGID}" hotio
-else
-    echo "Running as root is not supported, please fix your PUID and PGID!"
-    exit 1
-fi
-
-echo "Applying permissions to ${CONFIG_DIR}"
-chmod "=rwx" "${CONFIG_DIR}"
-chown hotio:hotio "${CONFIG_DIR}"
 
 echo "Applying permissions to /transcode"
 chmod "=rwx" "/transcode"

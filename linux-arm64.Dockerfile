@@ -7,7 +7,7 @@ ARG DEBIAN_FRONTEND="noninteractive"
 
 ENV PLEX_CLAIM_TOKEN="" PLEX_ADVERTISE_URL="" PLEX_NO_AUTH_NETWORKS="" PLEX_BETA_INSTALL="false" PLEX_PURGE_CODECS="false"
 
-VOLUME ["${CONFIG_DIR}","/transcode"]
+VOLUME ["/transcode"]
 
 # install packages
 RUN apt update && \

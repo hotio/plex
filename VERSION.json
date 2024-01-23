@@ -4,7 +4,7 @@
   "version": "1.32.8.7639-fb6452ebf",
   "upstream_image": "ghcr.io/hotio/base",
   "upstream_tag": "jammy",
-  "upstream_digest_amd64": "sha256:92ccf69ffcbdf60d9354becbac0c70a31c583cd33b29773937d21852011c1316",
-  "upstream_digest_arm64": "sha256:dc0d3b3e28618e5a7adcc75ad3c43cddba0ad215ed4f7b1eb58aaef49c2fed67",
+  "upstream_digest_amd64": "sha256:45ea2f5207ddca9bb1c542cd0d3146e9156bc40a51453aab14485642bb86cc80",
+  "upstream_digest_arm64": "sha256:17a2d7eecb74dbeca9eba0b9faba13a040142ca53cbcc93264d2829855bba352",
   "test_url": "http://localhost:32400/web"
 }
