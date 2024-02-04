@@ -4,7 +4,7 @@
   "version": "1.32.8.7639-fb6452ebf",
   "upstream_image": "ghcr.io/hotio/base",
   "upstream_tag": "jammyvpn",
-  "upstream_digest_amd64": "sha256:b6173392629d62b052c9562c613429bf18918812e175911d9dea901a7414c08e",
-  "upstream_digest_arm64": "sha256:d8d508b7eb31d58ca9cbe3cbf8b7782e2e54ebde5993cf4e797e02be83823863",
+  "upstream_digest_amd64": "sha256:3db1e0dda2935e3a3ac1069af11cf5197721c7a2bb809bca5a3893e83284bbe4",
+  "upstream_digest_arm64": "sha256:45953981e6fa885ff44d113b5779158f2e4803610370bcfdceeea04f7e468b12",
   "test_url": "http://localhost:32400/web"
 }
