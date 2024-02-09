@@ -2,13 +2,13 @@
   "release": {
     "description": "Stable",
     "hide": false,
-    "last_updated": "2024-02-08T22:19:44.000Z",
-    "last_updated_url": "https://github.com/hotio/plex/actions/runs/7836597322",
+    "last_updated": "2024-02-09T05:19:28.000Z",
+    "last_updated_url": "https://github.com/hotio/plex/actions/runs/7839892605",
     "latest": true,
     "tags": [
       "release",
       "release-1.32.8.7639-fb6452ebf",
-      "release-abcbc4c"
+      "release-b5a44d5"
     ]
   }
 }
