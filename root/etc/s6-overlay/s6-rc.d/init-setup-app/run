@@ -25,7 +25,7 @@ PLEX_PURGE_CODECS=${PLEX_PURGE_CODECS}
 
 echo "Applying permissions to /transcode"
 chmod "=rwx" "/transcode"
-chown hotio:hotio "/transcode"
+find "/transcode" -maxdepth 0 \( ! -user hotio -or ! -group hotio \) -exec chown hotio:hotio {} +
 
 ############
 ## Functions
@@ -53,12 +53,11 @@ prefFile="${CONFIG_DIR}/Preferences.xml"
 # Create empty Preferences.xml file if it doesn't exist already
 if [[ ! -f "${prefFile}" ]]; then
     echo "Creating empty Preferences.xml..."
-    mkdir -p "$(dirname "${prefFile}")"
     cat > "${prefFile}" <<-EOF
 <?xml version="1.0" encoding="utf-8"?>
 <Preferences/>
 EOF
-    chown -R hotio:hotio "$(dirname "${prefFile}")"
+    find "${prefFile}" -maxdepth 0 \( ! -user hotio -or ! -group hotio \) -exec chown hotio:hotio {} +
 fi
 
 # Setup Server's client identifier
@@ -119,8 +118,6 @@ rm -f "${CONFIG_DIR}/plexmediaserver.pid"
 
 ####################
 ## Install Plex Beta
-prefFile="${CONFIG_DIR}/Preferences.xml"
-
 [[ -n "${PLEX_PASS}" ]] && PLEX_BETA_INSTALL=${PLEX_PASS}
 if [[ "${PLEX_BETA_INSTALL}" == "yes" ]] || [[ "${PLEX_BETA_INSTALL}" == "true" ]]; then
     echo "Attempting beta installation..."
