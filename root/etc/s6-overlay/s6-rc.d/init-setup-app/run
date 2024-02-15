@@ -15,6 +15,7 @@ echo "
 ----------------------------------------------------------------------
 ENVIRONMENT APP
 ----------------------------------------------------------------------
+WEBUI_PORTS=${WEBUI_PORTS}
 PLEX_CLAIM_TOKEN=$(mask "${PLEX_CLAIM_TOKEN}")
 PLEX_ADVERTISE_URL=${PLEX_ADVERTISE_URL}
 PLEX_NO_AUTH_NETWORKS=${PLEX_NO_AUTH_NETWORKS}
