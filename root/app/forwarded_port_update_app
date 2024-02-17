@@ -1,0 +1,31 @@
+# shellcheck shell=bash
+
+############
+## Functions
+function getPref {
+    local key="$1"
+    xmlstarlet sel -T -t -m "/Preferences" -v "@${key}" -n "${prefFile}"
+}
+prefFile="${CONFIG_DIR}/Preferences.xml"
+
+until pidof "Plex Media Server" > /dev/null; do   
+    sleep 1
+done
+
+port=$(sed -n '1p' "${CONFIG_DIR}/wireguard/forwarded_port")
+token="$(getPref "PlexOnlineToken")"
+
+if ! curl -fsSL --retry-all-errors --retry-delay 10 --retry 5 --retry-max-time 120 -X PUT -G -H "X-Plex-Token: ${token}" --data-urlencode "ManualPortMappingPort=${port}" http://localhost:32400/:/prefs; then
+    echo "[ERR] [$(date '+%Y-%m-%d %H:%M:%S')] [PLEX] Unable to set [ManualPortMappingPort]!"
+    exit 1
+fi
+if ! curl -fsSL --retry-all-errors --retry-delay 10 --retry 5 --retry-max-time 120 -X PUT -G -H "X-Plex-Token: ${token}" --data-urlencode "ManualPortMappingMode=1" http://localhost:32400/:/prefs; then
+    echo "[ERR] [$(date '+%Y-%m-%d %H:%M:%S')] [PLEX] Unable to set [ManualPortMappingMode]!"
+    exit 1
+fi
+if ! curl -fsSL --retry-all-errors --retry-delay 10 --retry 5 --retry-max-time 120 -X PUT -G -H "X-Plex-Token: ${token}" --data-urlencode "PublishServerOnPlexOnlineKey=true" http://localhost:32400/:/prefs; then
+    echo "[ERR] [$(date '+%Y-%m-%d %H:%M:%S')] [PLEX] Unable to set [PublishServerOnPlexOnlineKey]!"
+    exit 1
+fi
+
+echo "[INF] [$(date '+%Y-%m-%d %H:%M:%S')] [PLEX] Manual port mapping succeeded."
