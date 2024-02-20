@@ -4,8 +4,8 @@
   "test_amd64": true,
   "test_arm64": true,
   "test_url": "http://localhost:32400/web",
-  "upstream_digest_amd64": "sha256:00f2a9b3e3b6118ec2e444956b23e3731fb38de3656fa12d641db04281c57552",
-  "upstream_digest_arm64": "sha256:641a57a84f82a612715aaa8f6efb2ff19398f242ec6a8026ff6dfd8ae252c785",
+  "upstream_digest_amd64": "sha256:982b1e0176d663996f039bf26677133e58f09b029732561d540965877674d8cd",
+  "upstream_digest_arm64": "sha256:36096f034d587a5d6830815dc62ebedb016b164f1cf355d2d2762a44f92ce55d",
   "upstream_image": "ghcr.io/hotio/base",
   "upstream_tag": "jammyvpn",
   "version": "1.40.0.7998-c29d4c0c8"
