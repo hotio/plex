@@ -4,7 +4,7 @@
     "hide": false,
     "last_updated": "2024-03-05T11:21:33.000Z",
     "last_updated_url": "https://github.com/hotio/plex/actions/runs/8155384074",
-    "latest": true,
+    "latest": false,
     "tags": [
       "alpine",
       "alpine-1.40.0.7998-c29d4c0c8",
