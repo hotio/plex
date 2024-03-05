@@ -14,13 +14,13 @@
   "release": {
     "description": "Stable",
     "hide": false,
-    "last_updated": "2024-03-05T09:39:28.000Z",
-    "last_updated_url": "https://github.com/hotio/plex/actions/runs/8153933801",
+    "last_updated": "2024-03-05T11:29:08.000Z",
+    "last_updated_url": "https://github.com/hotio/plex/actions/runs/8155468241",
     "latest": true,
     "tags": [
       "release",
       "release-1.40.0.7998-c29d4c0c8",
-      "release-93f86a4"
+      "release-0604171"
     ]
   }
 }
