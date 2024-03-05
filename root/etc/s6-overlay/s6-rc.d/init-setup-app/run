@@ -117,67 +117,6 @@ fi
 # Remove pid file
 rm -f "${CONFIG_DIR}/plexmediaserver.pid"
 
-####################
-## Install Plex Beta
-[[ -n "${PLEX_PASS}" ]] && PLEX_BETA_INSTALL=${PLEX_PASS}
-if [[ "${PLEX_BETA_INSTALL}" == "yes" ]] || [[ "${PLEX_BETA_INSTALL}" == "true" ]]; then
-    echo "Attempting beta installation..."
-
-    token="$(getPref "PlexOnlineToken")"
-    if [[ -z "${token}" ]]; then
-        echo "No token has been found! Aborting installation."
-        exit 0
-    fi
-
-    PLEX_PASS_VERSION=$(curl -fsSL "https://plex.tv/api/downloads/5.json?channel=plexpass&X-Plex-Token=${token}" | jq -r .computer.Linux.version)
-    PUBLIC_VERSION=$(curl -fsSL "https://plex.tv/api/downloads/5.json" | jq -r .computer.Linux.version)
-
-    if [[ "${PUBLIC_VERSION}" == "${PLEX_PASS_VERSION}" ]]; then
-        echo "No eligable beta found! Aborting installation."
-        exit 0
-    fi
-
-    INSTALLED_VERSION=$(cat "${APP_DIR}/version")
-    if [[ "${INSTALLED_VERSION}" == "${PLEX_PASS_VERSION}" ]]; then
-        echo "Already on the latest beta \"${PLEX_PASS_VERSION}\", no update required. Aborting installation."
-        exit 0
-    fi
-
-    case "${BUILD_ARCHITECTURE}" in
-        linux-amd64)
-            architecture="amd64"
-            ;;
-        linux-arm64)
-            architecture="arm64"
-            ;;
-    esac
-
-    debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "https://downloads.plex.tv/plex-media-server-new/${PLEX_PASS_VERSION}/debian/plexmediaserver_${PLEX_PASS_VERSION}_${architecture}.deb" && dpkg -i --force-confold "${debfile}" && rm -f "${debfile}" && echo "${PLEX_PASS_VERSION}" > "${APP_DIR}/version" && INSTALL_OK="yes"
-    if [[ "${INSTALL_OK}" != "yes" ]]; then
-        echo -e '\e[31m'"Installation of beta \"${PLEX_PASS_VERSION}\" failed!"'\e[0m'
-        exit 1
-    else
-        echo "Installation of beta \"${PLEX_PASS_VERSION}\" succeeded."
-    fi
-fi
-
-######################
-## Install Plex Custom
-INSTALLED_VERSION=$(cat "${APP_DIR}/version")
-
-[[ -n "${PLEX_PASS}" ]] && PLEX_BETA_INSTALL=${PLEX_PASS}
-if [[ "${PLEX_BETA_INSTALL}" == "http"* ]] && [[ "${PLEX_BETA_INSTALL}" != "${INSTALLED_VERSION}" ]]; then
-    echo "Attempting custom installation...don't come crying for support!"
-
-    debfile="/tmp/plex.deb" && curl -fsSL -o "${debfile}" "${PLEX_BETA_INSTALL}" && dpkg -i --force-confold "${debfile}" && rm -f "${debfile}" && echo "${PLEX_BETA_INSTALL}" > "${APP_DIR}/version" && INSTALL_OK="yes"
-    if [[ "${INSTALL_OK}" != "yes" ]]; then
-        echo -e '\e[31m'"Installation of \"${PLEX_BETA_INSTALL}\" failed!"'\e[0m'
-        exit 1
-    else
-        echo "Installation of \"${PLEX_BETA_INSTALL}\" succeeded."
-    fi
-fi
-
 #############
 ## HW Support
 DEVICES=$(find /dev/dri /dev/dvb -type c -print 2>/dev/null)
@@ -202,4 +141,82 @@ done
 if [[ "${PLEX_PURGE_CODECS}" == "true" ]]; then
     echo "Purging Codecs folder..."
     find "${CONFIG_DIR}/Codecs" -mindepth 1 -not -name '.device-id' -print -delete
+fi
+
+####################
+## Install Plex Beta
+[[ -n "${PLEX_PASS}" ]] && PLEX_BETA_INSTALL=${PLEX_PASS}
+if [[ "${PLEX_BETA_INSTALL}" == "yes" ]] || [[ "${PLEX_BETA_INSTALL}" == "true" ]]; then
+    echo "Attempting beta installation..."
+    do_install=true
+
+    token="$(getPref "PlexOnlineToken")"
+    if [[ -z "${token}" ]]; then
+        echo "No token has been found! Aborting installation."
+        do_install=false
+    fi
+
+    PLEX_PASS_VERSION=$(curl -fsSL "https://plex.tv/api/downloads/5.json?channel=plexpass&X-Plex-Token=${token}" | jq -r .computer.Linux.version)
+    PUBLIC_VERSION=$(curl -fsSL "https://plex.tv/api/downloads/5.json" | jq -r .computer.Linux.version)
+
+    if [[ "${PUBLIC_VERSION}" == "${PLEX_PASS_VERSION}" ]] && [[ "${do_install}" == true ]]; then
+        echo "No eligable beta found! Aborting installation."
+        do_install=false
+    fi
+
+    INSTALLED_VERSION=$(cat "${APP_DIR}/version")
+    if [[ "${INSTALLED_VERSION}" == "${PLEX_PASS_VERSION}" ]] && [[ "${do_install}" == true ]]; then
+        echo "Already on the latest beta \"${PLEX_PASS_VERSION}\", no update required. Aborting installation."
+        do_install=false
+    fi
+
+    if [[ "${do_install}" == true ]]; then
+        case "${BUILD_ARCHITECTURE}" in
+            linux-amd64)
+                architecture="amd64"
+                ;;
+            linux-arm64)
+                architecture="arm64"
+                ;;
+        esac
+
+        debfile="/tmp/plex.deb" && \
+            curl -fsSL "https://downloads.plex.tv/plex-media-server-new/${PLEX_PASS_VERSION}/debian/plexmediaserver_${PLEX_PASS_VERSION}_${architecture}.deb" -o "${debfile}" && \
+            rm -rf "${APP_DIR:?}/bin" && \
+            mkdir "${APP_DIR}/bin" && \
+            dpkg-deb -x "${debfile}" "${APP_DIR}/bin" && \
+            rm -f "${debfile}" && \
+            echo "${PLEX_PASS_VERSION}" > "${APP_DIR}/version" && \
+            INSTALL_OK="yes"
+        if [[ "${INSTALL_OK}" != "yes" ]]; then
+            echo -e '\e[31m'"Installation of beta \"${PLEX_PASS_VERSION}\" failed!"'\e[0m'
+            exit 1
+        else
+            echo "Installation of beta \"${PLEX_PASS_VERSION}\" succeeded."
+        fi
+    fi
+fi
+
+######################
+## Install Plex Custom
+INSTALLED_VERSION=$(cat "${APP_DIR}/version")
+
+[[ -n "${PLEX_PASS}" ]] && PLEX_BETA_INSTALL=${PLEX_PASS}
+if [[ "${PLEX_BETA_INSTALL}" == "http"* ]] && [[ "${PLEX_BETA_INSTALL}" != "${INSTALLED_VERSION}" ]]; then
+    echo "Attempting custom installation...don't come crying for support!"
+
+    debfile="/tmp/plex.deb" && \
+        curl -fsSL "${PLEX_BETA_INSTALL}" -o "${debfile}" && \
+        rm -rf "${APP_DIR:?}/bin" && \
+        mkdir "${APP_DIR}/bin" && \
+        dpkg-deb -x "${debfile}" "${APP_DIR}/bin" && \
+        rm -f "${debfile}" && \
+        echo "${PLEX_BETA_INSTALL}" > "${APP_DIR}/version" && \
+        INSTALL_OK="yes"
+    if [[ "${INSTALL_OK}" != "yes" ]]; then
+        echo -e '\e[31m'"Installation of \"${PLEX_BETA_INSTALL}\" failed!"'\e[0m'
+        exit 1
+    else
+        echo "Installation of \"${PLEX_BETA_INSTALL}\" succeeded."
+    fi
 fi

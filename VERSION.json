@@ -4,9 +4,9 @@
   "test_amd64": true,
   "test_arm64": true,
   "test_url": "http://localhost:32400/web",
-  "upstream_digest_amd64": "sha256:12b5a7e0fc18cd698a56c6b2fadf3472e62201ad441e896dc0f13a5e73021349",
-  "upstream_digest_arm64": "sha256:0a039eb78a35179d86868b9401ac8f5d4d9c01c064982a39614ddc035d9f74b0",
+  "upstream_digest_amd64": "sha256:9148bd5af7b67646882351563e8d917f05f1d67e14b9c632b19d613cf28bd415",
+  "upstream_digest_arm64": "sha256:188ae19dd13c8fa837e3552e54e0e0116cb9ac370fbeb842bf71a1cadd914dd5",
   "upstream_image": "ghcr.io/hotio/base",
-  "upstream_tag": "jammyvpn",
+  "upstream_tag": "alpinevpn",
   "version": "1.40.0.7998-c29d4c0c8"
 }
