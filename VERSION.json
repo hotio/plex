@@ -1,6 +1,6 @@
 {
   "description": "Stable",
-  "latest": false,
+  "latest": true,
   "test_amd64": true,
   "test_arm64": true,
   "test_url": "http://localhost:32400/web",
