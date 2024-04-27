@@ -7,8 +7,14 @@ VOLUME ["/transcode"]
 ARG IMAGE_STATS
 ENV IMAGE_STATS=${IMAGE_STATS} WEBUI_PORTS="32400/tcp,32400/udp" PLEX_CLAIM_TOKEN="" PLEX_ADVERTISE_URL="" PLEX_NO_AUTH_NETWORKS="" PLEX_BETA_INSTALL="false" PLEX_PURGE_CODECS="false"
 
-RUN apk add --no-cache dpkg && \
-    apk add --no-cache --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community xmlstarlet
+ARG DEBIAN_FRONTEND="noninteractive"
+RUN apt update && \
+    apt install -y --no-install-recommends --no-install-suggests \
+        xmlstarlet && \
+# clean up
+    apt autoremove -y && \
+    apt clean && \
+    rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
 # install plex
 ARG VERSION
