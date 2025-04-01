@@ -4,9 +4,9 @@
   "test_amd64": true,
   "test_arm64": true,
   "test_url": "http://localhost:32400/web",
-  "upstream_digest_amd64": "sha256:8042041cb99de075ff9960615d1ded4ea45ceab04ccfd22f8185b643bcde2d52",
-  "upstream_digest_arm64": "sha256:e6c3105c18c16353bf4c195b5788ffc410c247336840738a4c6fd7e31b92a516",
+  "upstream_digest_amd64": "sha256:cc7edcaf76673c92b343ce84a3d98fbf079a708e174e2751b40948b07063d1cd",
+  "upstream_digest_arm64": "sha256:655c86df1c022d35206fda3dac3037a6cfb8e5de3cec9190488e84f1f0916215",
   "upstream_image": "ghcr.io/hotio/base",
-  "upstream_tag": "jammyvpn",
+  "upstream_tag": "noblevpn",
   "version": "1.41.5.9522-a96edc606"
 }
