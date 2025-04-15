@@ -145,8 +145,7 @@ fi
 
 ####################
 ## Install Plex Beta
-[[ -n "${PLEX_PASS}" ]] && PLEX_BETA_INSTALL=${PLEX_PASS}
-if [[ "${PLEX_BETA_INSTALL}" == "yes" ]] || [[ "${PLEX_BETA_INSTALL}" == "true" ]]; then
+if [[ "${PLEX_BETA_INSTALL}" == "true" ]]; then
     echo "Attempting beta installation..."
     do_install=true
 
@@ -201,7 +200,6 @@ fi
 ## Install Plex Custom
 INSTALLED_VERSION=$(cat "${APP_DIR}/version")
 
-[[ -n "${PLEX_PASS}" ]] && PLEX_BETA_INSTALL=${PLEX_PASS}
 if [[ "${PLEX_BETA_INSTALL}" == "http"* ]] && [[ "${PLEX_BETA_INSTALL}" != "${INSTALLED_VERSION}" ]]; then
     echo "Attempting custom installation...don't come crying for support!"
 
