@@ -4,8 +4,8 @@
   "test_amd64": true,
   "test_arm64": true,
   "test_url": "http://localhost:32400/web",
-  "upstream_digest_amd64": "sha256:9697bad22bf7a8652eac720e4d05c00027060955c00666d4da6693b8397da521",
-  "upstream_digest_arm64": "sha256:f5a7c33c78d5724975f9d5f701f472854e67dc8386f650b71b4a2d27acf86616",
+  "upstream_digest_amd64": "sha256:b6fed9ba85f38c292ff49417e78195c6e9a1dae4800ea1c9c9b1f9bf7c41f55c",
+  "upstream_digest_arm64": "sha256:0b281e881d7b07d8b05694a5369d1822d22039098525cc56fed1e05b9826ed40",
   "upstream_image": "ghcr.io/hotio/base",
   "upstream_tag": "noblevpn",
   "version": "1.42.1.10060-4e8b05daf"
