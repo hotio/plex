@@ -15,15 +15,15 @@ done
 port=$(sed -n '1p' "${CONFIG_DIR}/wireguard/forwarded_port")
 token="$(getPref "PlexOnlineToken")"
 
-if ! curl -fsSL --retry-all-errors --retry-delay 10 --retry 5 --retry-max-time 120 -X PUT -G -H "X-Plex-Token: ${token}" --data-urlencode "ManualPortMappingPort=${port}" http://localhost:32400/:/prefs; then
+if ! curl -fsL --retry-all-errors --retry-delay 10 --retry 5 --retry-max-time 120 -X PUT -G -H "X-Plex-Token: ${token}" --data-urlencode "ManualPortMappingPort=${port}" http://localhost:32400/:/prefs; then
     log_err "[PLEX] Unable to set [ManualPortMappingPort]!"
     exit 1
 fi
-if ! curl -fsSL --retry-all-errors --retry-delay 10 --retry 5 --retry-max-time 120 -X PUT -G -H "X-Plex-Token: ${token}" --data-urlencode "ManualPortMappingMode=1" http://localhost:32400/:/prefs; then
+if ! curl -fsL --retry-all-errors --retry-delay 10 --retry 5 --retry-max-time 120 -X PUT -G -H "X-Plex-Token: ${token}" --data-urlencode "ManualPortMappingMode=1" http://localhost:32400/:/prefs; then
     log_err "[PLEX] Unable to set [ManualPortMappingMode]!"
     exit 1
 fi
-if ! curl -fsSL --retry-all-errors --retry-delay 10 --retry 5 --retry-max-time 120 -X PUT -G -H "X-Plex-Token: ${token}" --data-urlencode "PublishServerOnPlexOnlineKey=true" http://localhost:32400/:/prefs; then
+if ! curl -fsL --retry-all-errors --retry-delay 10 --retry 5 --retry-max-time 120 -X PUT -G -H "X-Plex-Token: ${token}" --data-urlencode "PublishServerOnPlexOnlineKey=true" http://localhost:32400/:/prefs; then
     log_err "[PLEX] Unable to set [PublishServerOnPlexOnlineKey]!"
     exit 1
 fi
