@@ -3,7 +3,6 @@ ARG UPSTREAM_DIGEST_ARM64
 
 FROM ${UPSTREAM_IMAGE}@${UPSTREAM_DIGEST_ARM64}
 EXPOSE 32400
-VOLUME ["/transcode"]
 ARG IMAGE_STATS
 ENV IMAGE_STATS=${IMAGE_STATS} WEBUI_PORTS="32400/tcp" PLEX_CLAIM_TOKEN="" PLEX_ADVERTISE_URL="" PLEX_NO_AUTH_NETWORKS="" PLEX_BETA_INSTALL="false" PLEX_PURGE_CODECS="false"
 
@@ -28,3 +27,4 @@ RUN debfile="/tmp/plex.deb" && \
     ln -s "${CONFIG_DIR}" "${APP_DIR}/config/Plex Media Server"
 
 COPY root/ /
+RUN find /etc/s6-overlay/s6-rc.d -name "run*" -execdir chmod +x {} +

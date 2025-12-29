@@ -4,7 +4,7 @@
 umask "${UMASK}"
 
 PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="${APP_DIR}/config"   && export PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR
-TMPDIR="/transcode"                                             && export TMPDIR
+TMPDIR="${CONFIG_DIR}/Temp"                                     && export TMPDIR
 PLEX_MEDIA_SERVER_HOME="${APP_DIR}/bin/usr/lib/plexmediaserver" && export PLEX_MEDIA_SERVER_HOME
 PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=6                            && export PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS
 PLEX_MEDIA_SERVER_INFO_VENDOR="Docker"                          && export PLEX_MEDIA_SERVER_INFO_VENDOR
