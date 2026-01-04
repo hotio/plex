@@ -1,14 +1,18 @@
 {
   "release": {
+    "commit_message": "Upstream image update",
     "description": "Stable",
     "hide": false,
-    "last_updated": "2025-12-31T17:24:58.000Z",
-    "last_updated_url": "https://github.com/hotio/plex/actions/runs/20623609680",
+    "last_updated": "2026-01-04T09:26:13.000Z",
+    "last_updated_url": "https://github.com/hotio/plex/actions/runs/20690830029",
     "latest": true,
     "tags": [
       "release",
       "release-1.42.2.10156-f737b826c",
-      "release-752dc0f"
+      "release-e147efb",
+      "",
+      "",
+      ""
     ]
   }
 }
