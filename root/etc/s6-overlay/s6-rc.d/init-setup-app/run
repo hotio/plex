@@ -135,11 +135,11 @@ if [[ "${PLEX_BETA_INSTALL}" == "true" ]]; then
         do_install=false
     fi
     if [[ "${do_install}" == true ]]; then
-        case "${BUILD_ARCHITECTURE}" in
-            linux-amd64)
+        case "$(uname -m)" in
+            x86_64)
                 architecture="amd64"
                 ;;
-            linux-arm64)
+            aarch64)
                 architecture="arm64"
                 ;;
         esac
