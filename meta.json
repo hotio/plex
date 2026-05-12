@@ -1,7 +1,6 @@
 {
   "description": "Stable",
   "latest": true,
-  "packages_hash": "be966fa050343af3db1e1018064c9122885de32e",
   "test_amd64": true,
   "test_arm64": true,
   "test_url": "http://localhost:32400/web",
