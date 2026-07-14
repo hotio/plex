@@ -8,6 +8,6 @@
   "upstream_tag": "noblevpn",
   "upstream_tag_sha": "noblevpn-f84eefb",
   "upstream_tag_sha__command": "json=$(cat meta.json) && upstream_image=$(jq -re '.upstream_image' <<< \"${json}\") && upstream_image_base=$(basename \"${upstream_image}\") && upstream_tag=$(jq -re '.upstream_tag' <<< \"${json}\") && tags_json=$(curl -fsSL ${GITHUB_TOKEN:+--header \"Authorization: Bearer ${GITHUB_TOKEN}\"} \"https://hotio.dev/containers/${upstream_image_base}-tags.json\") && commit_sha=$(jq -r --arg tag \"${upstream_tag}\" '.[$tag].commit_sha' <<< \"${tags_json}\") && upstream_tag_sha=${upstream_tag}-${commit_sha:0:7} && echo \"${upstream_tag_sha}\"",
-  "version": "1.43.2.10687-563d026ea",
+  "version": "1.43.3.10828-00f62d37d",
   "version__command": "curl -fsSL \"https://plex.tv/api/downloads/5.json\" | jq -re '.computer.Linux.version' | sed -E 's/^v//'"
 }
